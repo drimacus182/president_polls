@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 <html>
 <head>
-    <title>Перша реєстрація автомобілів в Україні</title>
+    <title>Вибори, вибори!</title>
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/application.css" type="text/css">
@@ -11,11 +11,11 @@
     <link href='http://fonts.googleapis.com/css?family=PT+Sans&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 
-    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
     <meta property="og:site_name" content="ТЕКСТИ.ORG.UA"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:title" content="Перша реєстрація автомобілів в Україні"/>
+    <meta property="og:title" content="Вибори, вибори!"/>
     <meta property="og:image" content="http://texty.org.ua/cars/image/og.jpg"/>
     <meta property="og:description" content="Аналізуйте дані Сервісного центру МВС про реєстрацію автомобілів"/>
     <meta property="og:url" content="http://texty.org.ua/cars">
@@ -24,86 +24,56 @@
     <meta property="twitter:account_id" content="49572937"/>
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:url" content="http://texty.org.ua/cars"/>
-    <meta name="twitter:title" content="Перша реєстрація автомобілів в Україні"/>
+    <meta name="twitter:title" content="Вибори, вибори!"/>
     <meta name="twitter:description" content="Аналізуйте дані Сервісного центру МВС про реєстрацію автомобілів"/>
     <meta name="twitter:image:src" content="http://texty.org.ua/cars/image/og.jpg"/>
     <meta name="twitter:image:width" content="1200"/>
     <meta name="twitter:image:height" content="630"/>
     <!-- Other Meta Tags -->
-    <meta name="title" content="Перша реєстрація автомобілів в Україні">
+    <meta name="title" content="Вибори, вибори!">
     <meta name="description" content="Аналізуйте дані Сервісного центру МВС про реєстрацію автомобілів">
 
 </head>
 
 <body>
-
-<div class="container-fluid header-block">
-    <div class="row justify-content-center">
-        <div class="header-text-block">
-            <h3>Перша реєстрація автомобілів в Україні</h3>
-            <p>Щороку в Україні здійснюється понад мільйон реєстраційних операцій, зокрема, у 2017 їх було 1 415 512. Дослідити реальний стан українського авторинку та якісно змінити його майбутнє відтепер можна у кілька кліків.</p>
-            <p>Вперше в Україні Головний сервісний центр МВС оприлюднив <a class="dotted" target="_blank" href="https://data.gov.ua/dataset/06779371-308f-42d7-895e-5a39833375f0"> відкриті дані про первинну реєстрацію авто </a> на національному порталі data.gov.ua. На основі цих даних створено простий та зручний у користуванні сервіс, що надає доступ до інформації, починаючи з 2013 року. Актуалізація інформації здійснюватиметься щомісячно.</p>
-            <p>Цей сервіс надає можливість  кожному громадянину самостійно встановлювати параметри пошуку інформації за допомогою зручних фільтрів. Такий інструмент має на меті унеможливити маніпуляції державними даними, зменшити корупційні ризики, вирівняти інформаційні умови для всіх учасників авторинку, незалежно від їхнього місця проживання чи глибини знань з автотематики.</p>
+<header class="container-fluid">
+    <div class="row">
+        <div class="col-12 justify-content-between">
+            <img src="image/logo.png" alt="texty.org.ua" class="main-logo">
         </div>
+    </div>
+</header>
+
+
+<div class="container-fluid main-title">
+    <div class="row justify-content-center">
+        <h3>Вибори, вибори!</h3>
     </div>
 </div>
 
 <div class="container">
     <div class="row">
-
-        <div class="col-12 col-sm-6 col-md-6 col-lg-6">
-            <div id="total_chart_legend"></div>
-        </div>
-    </div>
-
-    <div class="row">
         <div class="col-12">
-            <div><svg id="total_chart" class="smallchart" width="100%" data-aspect-ratio="0.2" data-min-height="72"></svg></div>
+            <div>
+                <svg id="main_chart" class="poll_chart" width="100%" data-aspect-ratio="0.2" data-min-height="400"></svg>
+            </div>
         </div>
     </div>
 
 
-    <div class="row">
-        <div class="col-12">
-            <h6 class="header-badge" style="margin-top: 50px;">Виберіть фільтр</h6>
-            <span style="color: #999">Графіки оновлюються при зміні фільтрів. Щоб змінити порядок фільтрів тягніть за значок <i class="fas fa-arrows-alt handle"></i>. Додавайте нові фільтри за допомогою кнопки <i class="far fa-plus-square"></i>. Щоб порівнювати моделі між собою виберіть кілька моделей</span>
-        </div>
-    </div>
-    <div class="row" id="filter_chain">
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <h6 class="header-badge" style="margin-top: 50px;">Активні фільтри</h6>
-            <span style="color: #999">Тут можна скинути попередньо встановлені фільтри</span>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <div id="badge_control" class="container-fluid"></div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <h6 class="header-badge" style="margin-top: 50px;">Зареєстровано по областях</h6>
-            <div id="small_multiples"></div>
-        </div>
-    </div>
+    <!--<div class="row">-->
+        <!--<div class="col-12">-->
+            <!--<h6 class="header-badge" style="margin-top: 50px;">Виберіть фільтр</h6>-->
+            <!--<span style="color: #999">Графіки оновлюються при зміні фільтрів. Щоб змінити порядок фільтрів тягніть за значок <i class="fas fa-arrows-alt handle"></i>. Додавайте нові фільтри за допомогою кнопки <i class="far fa-plus-square"></i>. Щоб порівнювати моделі між собою виберіть кілька моделей</span>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <div class="row justify-content-center" style="margin-top: 5em;">
 
         <div class="col-12 col-md-8 col-lg-6">
-            <p>Вперше транспортний засіб потрапляє в Єдиний державний реєстр МВС стосовно зареєстрованих транспортних засобів та їх власників під час його першої реєстрації власником у територіальному сервісному центрі МВС. Далі в реєстрі відображаються всі зміни, що відбуваються з автомобілем: зміна власника, номерного знака, здійснення переобладнання тощо. Сервіс відкритих даних не містить конфіденційної інформації, але при цьому надає можливість ознайомитися з технічними характеристиками зареєстрованих авто. Завдяки сервісу можна порівнювати дані щодо реєстрації транспортних засобів за регіоном, датою випуску, маркою та моделлю, типом палива, кольором та ін.
+            <p>Вперше транспортний засіб потрапляє в Єдиний державний реєстр МВС стосовно за регіоном, датою випуску, маркою та моделлю, типом палива, кольором та ін.
             </p>
 
-            <h3>Кому можуть знадобитися ці дані?</h3>
-            <p>Сервіс допомагає зрозуміти тенденції автомобільного ринку в Україні, запропонувати державі нові способи використання таких відкритих даних для підвищення доступності послуг у цій сфері, або ж виокремити цікаві факти. Наприклад:</p>
-            <ul>
-                <li>зазвичай, при першій реєстрації, серед українців не користуються популярністю автомобілі, старші за вісім років;</li>
-                <li>у 2017 році зареєстровано 64 655 автомобілів 2017 року випуску.</li>
-            </ul>
         </div>
     </div>
 </div>
@@ -125,12 +95,12 @@
     </div>
 </div>
 
-
 <script src="lib/d3.v4.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
 <script src="lib/share-behavior.js"></script>
 
+<script src="js/poll_chart.js"></script>
 <script src="js/main.js"></script>
 
 <script type="text/javascript">

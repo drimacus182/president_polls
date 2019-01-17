@@ -1,0 +1,38 @@
+svg.poll_chart {
+
+  shape-rendering: crispEdges;
+  overflow: visible;
+
+  .axis--x path {
+    /*display: none;*/
+  }
+
+  .axis path {
+    opacity: .1;
+    stroke-width: 1;
+    //display: none;
+  }
+
+  .axis--y path {
+    display: none;
+  }
+
+  .tick line {
+    opacity: .1;
+    stroke-width: 1;
+    //display: none;
+  }
+
+  .line {
+    fill: none;
+    stroke: black;
+    shape-rendering: geometricPrecision;
+  }
+
+  .area {
+    fill-opacity: 0.2;
+    fill: grey;
+    shape-rendering: geometricPrecision;
+  }
+
+}

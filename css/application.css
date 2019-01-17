@@ -5,56 +5,60 @@ body {
 p {
   font-size: 1em; }
 
+header {
+  border-bottom: 1px solid black; }
+  header .main-logo {
+    height: 3em; }
+
+svg.poll_chart {
+  shape-rendering: crispEdges;
+  overflow: visible; }
+  svg.poll_chart .axis--x path {
+    /*display: none;*/ }
+  svg.poll_chart .axis path {
+    opacity: .1;
+    stroke-width: 1; }
+  svg.poll_chart .axis--y path {
+    display: none; }
+  svg.poll_chart .tick line {
+    opacity: .1;
+    stroke-width: 1; }
+  svg.poll_chart .line {
+    fill: none;
+    stroke: black;
+    shape-rendering: geometricPrecision; }
+  svg.poll_chart .area {
+    fill-opacity: 0.2;
+    fill: grey;
+    shape-rendering: geometricPrecision; }
+
+.line_0 {
+  stroke: red !important; }
+
+.line_1 {
+  stroke: blue !important; }
+
+.area_0 {
+  fill: red !important; }
+
+.area_1 {
+  fill: blue !important; }
+
 body {
   color: #424242; }
 
-h3 {
-  margin-top: 2em; }
+.main-title {
+  min-height: 10em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
+  .main-title h3 {
+    font-size: 4em; }
 
 a.dotted {
   border-bottom: 1px dotted; }
   a.dotted:hover {
     text-decoration: none; }
-
-.header-block {
-  color: white;
-  background-color: #007852;
-  padding-top: 2em;
-  padding-bottom: 2em;
-  margin-bottom: 5em; }
-  .header-block .header-text-block {
-    max-width: 600px; }
-  .header-block h3 {
-    margin-top: 0;
-    font-weight: 800; }
-  .header-block a.dotted {
-    color: #afd2fa; }
-
-h6.header-badge {
-  display: inline-block;
-  text-transform: uppercase;
-  color: #007852;
-  border: 1px solid #007852;
-  padding-left: 0.2em;
-  padding-right: 0.2em;
-  margin-right: 0.3em; }
-
-.footer h3 {
-  font-weight: 800;
-  font-size: 1.5em; }
-.footer .credits {
-  margin-top: 50px;
-  margin-bottom: 100px; }
-  .footer .credits img {
-    max-width: 350px; }
-  .footer .credits h3 {
-    text-align: center;
-    margin-top: 1em; }
-.footer img.partner-logo {
-  height: 70px;
-  margin: 0 15px; }
-.footer .partners {
-  margin-bottom: 50px; }
 
 .share-btn {
   color: #bdbdbd; }
