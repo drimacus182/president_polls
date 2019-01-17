@@ -23,15 +23,22 @@ svg.poll_chart {
     //display: none;
   }
 
-  .line {
+
+  .line-pane .line {
     fill: none;
     stroke: black;
     shape-rendering: geometricPrecision;
   }
 
-  .area {
+  .area-pane .area {
     fill-opacity: 0.2;
     fill: grey;
+    shape-rendering: geometricPrecision;
+  }
+
+  .points-pane .points circle {
+    fill: grey;
+    stroke: none;
     shape-rendering: geometricPrecision;
   }
 

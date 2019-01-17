@@ -6,9 +6,13 @@ p {
   font-size: 1em; }
 
 header {
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
   border-bottom: 1px solid black; }
   header .main-logo {
-    height: 3em; }
+    height: 2.5em; }
 
 svg.poll_chart {
   shape-rendering: crispEdges;
@@ -23,13 +27,17 @@ svg.poll_chart {
   svg.poll_chart .tick line {
     opacity: .1;
     stroke-width: 1; }
-  svg.poll_chart .line {
+  svg.poll_chart .line-pane .line {
     fill: none;
     stroke: black;
     shape-rendering: geometricPrecision; }
-  svg.poll_chart .area {
+  svg.poll_chart .area-pane .area {
     fill-opacity: 0.2;
     fill: grey;
+    shape-rendering: geometricPrecision; }
+  svg.poll_chart .points-pane .points circle {
+    fill: grey;
+    stroke: none;
     shape-rendering: geometricPrecision; }
 
 .line_0 {
@@ -44,7 +52,14 @@ svg.poll_chart {
 .area_1 {
   fill: blue !important; }
 
+.points_0 circle {
+  fill: red !important; }
+
+.points_1 circle {
+  fill: blue !important; }
+
 body {
+  padding-top: 3em;
   color: #424242; }
 
 .main-title {
@@ -53,7 +68,8 @@ body {
   flex-direction: column;
   justify-content: center; }
   .main-title h3 {
-    font-size: 4em; }
+    font-size: 3em;
+    font-weight: 600; }
 
 a.dotted {
   border-bottom: 1px dotted; }

@@ -9,6 +9,7 @@
 @import "color_scheme";
 
 body {
+  padding-top: 3em;
   color: $main-text;
 }
 
@@ -19,7 +20,8 @@ body {
   justify-content: center;
 
   h3 {
-    font-size: 4em;
+    font-size: 3em;
+    font-weight: 600;
   }
 }
 

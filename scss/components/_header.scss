@@ -1,6 +1,11 @@
 header {
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
+
   .main-logo {
-    height: 3em;
+    height: 2.5em;
   }
 
   border-bottom:1px solid black;

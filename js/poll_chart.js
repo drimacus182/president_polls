@@ -1,14 +1,12 @@
 function poll_chart() {
 
-    var varName
-        , lines = []
+    var lines = []
         , areas = []
+        , pointss = []
 
         , x_domain
         , y_domain
 
-        , minY
-        , maxY
         , yFormat = (function() {
             var base = d3.format(".0d");
             return function(v) {return base(v).replace(/,/g, " ")}
@@ -16,11 +14,7 @@ function poll_chart() {
         , yTickValues
         , yTicks
         , xTicks = 10
-        , showTips
         , x
-
-        , minValueY
-        , maxValueY
 
         , formatMonth = d3.timeFormat("%b")
         , formatYear = d3.timeFormat("%Y")
@@ -64,7 +58,6 @@ function poll_chart() {
             if (y_domain) y.domain(y_domain)
             else throw "Auto y domain not implemented"
 
-            // y.domain([minY, maxY]);
 
             var xAxis = d3.axisBottom(x)
                 .tickSizeOuter(10)
@@ -91,7 +84,7 @@ function poll_chart() {
             g.append("g")
                 .attr("class", "axis axis--y")
                 .call(yAxis);
-            
+
             var area_g = g
                 .append("g")
                 .attr("class", "area-pane");
@@ -100,6 +93,9 @@ function poll_chart() {
                 .append("g")
                 .attr("class", "line-pane");
 
+            var points_g = g
+                .append("g")
+                .attr("class", "points-pane");
 
             function drawLine(lineobj) {
                 line_g
@@ -115,6 +111,18 @@ function poll_chart() {
                     .attr("d", area_gen(areaobj.data));
             }
 
+            function drawPoints(pointsobj) {
+                points_g
+                    .append("g")
+                    .attr("class", "points " + pointsobj["class"])
+                    .selectAll("circle")
+                    .data(pointsobj.data)
+                    .enter()
+                    .append("circle")
+                    .attr("r", 2)
+                    .attr("cx", d => x(d.date))
+                    .attr("cy", d => y(d.v))
+            }
 
             areas.forEach(function(areaobj){
                 drawArea(areaobj);
@@ -123,6 +131,10 @@ function poll_chart() {
             lines.forEach(function(lineobj){
                 drawLine(lineobj);
             });
+
+            pointss.forEach(function(pointsobj){
+                drawPoints(pointsobj);
+            })
         });
     }
 
@@ -143,15 +155,9 @@ function poll_chart() {
         return my;
     };
 
-    my.data = function(value) {
-        if (!arguments.length) return data;
-        data = value;
-        return my;
-    };
-
-    my.varName = function(value) {
-        if (!arguments.length) return varName;
-        varName = value;
+    my.addPoints = function(value) {
+        if (!arguments.length) return;
+        pointss.push(value);
         return my;
     };
 
@@ -164,30 +170,6 @@ function poll_chart() {
     my.y_domain = function(value) {
         if (!arguments.length) return y_domain;
         y_domain = value;
-        return my;
-    };
-
-    my.minY = function(value) {
-        if (!arguments.length) return minY;
-        minY = value;
-        return my;
-    };
-
-    my.maxY = function(value) {
-        if (!arguments.length) return maxY;
-        maxY = value;
-        return my;
-    };
-
-    my.minValueY = function(value) {
-        if (!arguments.length) return minValueY;
-        minValueY = value;
-        return my;
-    };
-
-    my.maxValueY = function(value) {
-        if (!arguments.length) return maxValueY;
-        maxValueY = value;
         return my;
     };
 
@@ -212,12 +194,6 @@ function poll_chart() {
     my.xTicks = function(value) {
         if (!arguments.length) return xTicks;
         xTicks = value;
-        return my;
-    };
-
-    my.showTips = function(value) {
-        if (!arguments.length) return showTips;
-        showTips = value;
         return my;
     };
 
