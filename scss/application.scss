@@ -11,6 +11,8 @@
 body {
   padding-top: 3em;
   color: $main-text;
+
+  svg text { fill: $main-text };
 }
 
 .main-title {

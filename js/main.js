@@ -1,6 +1,7 @@
 (function() {
     // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Vakarchuk","Boyko","Lyashko","Sadovy"];
-    var candidates = ["Tymoshenko","Poroshenko"];
+    var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko","Lyashko"];
+    // var candidates = ["Tymoshenko","Poroshenko"];
 
 
     d3.queue()
@@ -18,7 +19,7 @@
 
             raw_data_points.forEach(function(d) {
                 d.date = new Date(d.end_date);
-                candidates.forEach(function(candidate) {d[candidate] = +d[candidate]})
+                candidates.forEach(function(candidate) {d[candidate] = toNumber(d[candidate])})
                 delete d[""];
             });
 
@@ -30,7 +31,7 @@
                    candidate: candidate,
                    v: d[candidate],
                    poll_house: d.poll_house
-               })))
+               })).filter(obj => obj.v != null))
             });
 
 
@@ -42,14 +43,15 @@
 
             var lines_data = d3.nest()
                 .key(d => d.candidate)
-                .entries(raw_data_lines);
+                .entries(raw_data_lines)
+                .filter(obj => candidates.includes(obj.key));
 
             console.log(raw_data_lines);
             console.log(lines_data);
 
             var main_chart = poll_chart()
                 .x_domain(d3.extent(raw_data_lines, d => d.date))
-                .y_domain([5,18]);
+                .y_domain([3,20]);
 
 
             lines_data.forEach(function(line, i) {
@@ -77,6 +79,11 @@
 
             d3.select("#main_chart").call(main_chart);
     });
+
+    function toNumber(str) {
+        if (!str || !str.length || str == "NA") return null;
+        return +str;
+    }
 })();
 
 

@@ -18,22 +18,40 @@ function poll_chart() {
 
         , formatMonth = d3.timeFormat("%b")
         , formatYear = d3.timeFormat("%Y")
+        , colors = ["red", "blue", "green", "yellow", "brown", "pink", "indigo"]
         ;
 
     function my(selection) {
         selection.each(function(d) {
 
-            var svg = d3.select(this);
-            var w = svg.node().getBoundingClientRect().width;
-            var mh = +svg.attr("data-min-height");
-            var h = Math.max(mh, w * (+svg.attr("data-aspect-ratio")));
+            var container = d3.select(this);
+            var w = container.node().getBoundingClientRect().width;
+            var h = container.node().getBoundingClientRect().height;
+
+            // var mh = +container.attr("data-min-height");
+            // var h = Math.max(mh, w * (+container.attr("data-aspect-ratio")));
+
+            var canvas = container
+                .append("canvas")
+                .attr("class", "canvas-pane")
+                .attr("width", w)
+                .attr("height", h);
+
+            const ctx = canvas.node().getContext('2d');
+            // ctx.globalAlpha = 0.3;
+
+
+            var svg = container
+                .append("svg")
+                .attr("class", "svg-pane");
 
             var margin = {top: 5, right: 0, bottom: 15, left: 20}
                 , width = w - margin.left - margin.right
                 , height = h - margin.top - margin.bottom
                 , g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
                 ;
-            svg.attr("height", h);
+
+            ctx.translate(margin.left, margin.top);
 
             x = d3.scaleTime()
                 .range([0, width]);
@@ -51,6 +69,12 @@ function poll_chart() {
                 .y0(d => y(d.v0))
                 .y1(d => y(d.v1))
                 .curve(d3.curveLinear);
+
+            var area_gen_canvas = canvas_grad_line()
+                .x(d => x(d.date))
+                .y(d => y((d.v0 + d.v1) / 2))
+                .width(d => y(d.v0) - y(d.v1))
+                .context(ctx);
 
             if (x_domain) x.domain(x_domain)
             else throw "Auto x domain not implemented"
@@ -111,6 +135,11 @@ function poll_chart() {
                     .attr("d", area_gen(areaobj.data));
             }
 
+            function drawAreaCanvas(areaobj, color) {
+                area_gen_canvas.color(color);
+                area_gen_canvas(areaobj.data);
+            }
+
             function drawPoints(pointsobj) {
                 points_g
                     .append("g")
@@ -124,8 +153,8 @@ function poll_chart() {
                     .attr("cy", d => y(d.v))
             }
 
-            areas.forEach(function(areaobj){
-                drawArea(areaobj);
+            areas.forEach(function(areaobj, i){
+                drawAreaCanvas(areaobj, colors[i]);
             });
 
             lines.forEach(function(lineobj){

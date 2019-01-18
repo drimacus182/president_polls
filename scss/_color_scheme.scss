@@ -1,13 +1,19 @@
 $color_0: red;
 $color_1: blue;
 
-.line_0 { stroke: $color_0 !important;}
-.line_1 { stroke: $color_1 !important;}
+@mixin candidate_color($number, $color) {
+  .line_#{$number} { stroke: $color !important;}
+  .area_#{$number} { fill: $color !important;}
+  .points_#{$number} circle { fill: $color !important;}
+}
 
+@include candidate_color(0, red);
+@include candidate_color(1, blue);
+@include candidate_color(2, green);
+@include candidate_color(3, yellow);
+@include candidate_color(4, brown);
+@include candidate_color(5, pink);
+@include candidate_color(6, indigo);
+@include candidate_color(7, #fa8100);
+@include candidate_color(8, black);
 
-.area_0 { fill: $color_0 !important; }
-.area_1 { fill: $color_1 !important; }
-
-
-.points_0 circle { fill: $color_0 !important; }
-.points_1 circle { fill: $color_1 !important; }
