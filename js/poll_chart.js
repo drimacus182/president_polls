@@ -18,9 +18,15 @@ function poll_chart() {
 
         , formatMonth = d3.timeFormat("%b")
         , formatYear = d3.timeFormat("%Y")
-        , colors = ["red", "blue", "green", "yellow", "brown", "pink", "indigo"]
-        ;
-
+        , colors = [
+            "#58fdff",
+            "#ff5954",
+            "#fffe09",
+            "#4aff0b",
+            "#2900ff",
+            "#e03fe0"
+        ];
+    
     function my(selection) {
         selection.each(function(d) {
 
@@ -38,7 +44,7 @@ function poll_chart() {
                 .attr("height", h);
 
             const ctx = canvas.node().getContext('2d');
-            // ctx.globalAlpha = 0.3;
+            ctx.globalAlpha = 0.5;
 
 
             var svg = container

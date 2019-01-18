@@ -33,7 +33,7 @@ function canvas_grad_line() {
             context.beginPath();
             context.lineWidth = w;
             context.moveTo(+x(prev_d), +y(prev_d));
-            context.lineTo(+x(d)+1, +y(prev_d));
+            context.lineTo(+x(d), +y(prev_d));
             context.stroke();
             
             prev_d = d;

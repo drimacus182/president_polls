@@ -19,7 +19,8 @@ header {
     height: 2.5em; }
 
 .poll_chart {
-  position: relative; }
+  position: relative;
+  background-color: black; }
   .poll_chart svg {
     width: 100%;
     height: 100%; }
@@ -29,7 +30,8 @@ header {
     top: 0; }
   .poll_chart svg {
     shape-rendering: crispEdges;
-    overflow: visible; }
+    overflow: visible;
+    stroke: white; }
     .poll_chart svg .axis--x path {
       /*display: none;*/ }
     .poll_chart svg .axis path {
@@ -43,6 +45,7 @@ header {
     .poll_chart svg .line-pane .line {
       fill: none;
       stroke: black;
+      stroke-opacity: 0.4;
       shape-rendering: geometricPrecision; }
     .poll_chart svg .area-pane .area {
       fill-opacity: 0.2;
@@ -54,58 +57,58 @@ header {
       shape-rendering: geometricPrecision; }
 
 .line_0 {
-  stroke: red !important; }
+  stroke: #58fdff !important; }
 
 .area_0 {
-  fill: red !important; }
+  fill: #58fdff !important; }
 
 .points_0 circle {
-  fill: red !important; }
+  fill: #58fdff !important; }
 
 .line_1 {
-  stroke: blue !important; }
+  stroke: #ff5954 !important; }
 
 .area_1 {
-  fill: blue !important; }
+  fill: #ff5954 !important; }
 
 .points_1 circle {
-  fill: blue !important; }
+  fill: #ff5954 !important; }
 
 .line_2 {
-  stroke: green !important; }
+  stroke: #fffe09 !important; }
 
 .area_2 {
-  fill: green !important; }
+  fill: #fffe09 !important; }
 
 .points_2 circle {
-  fill: green !important; }
+  fill: #fffe09 !important; }
 
 .line_3 {
-  stroke: yellow !important; }
+  stroke: #4aff0b !important; }
 
 .area_3 {
-  fill: yellow !important; }
+  fill: #4aff0b !important; }
 
 .points_3 circle {
-  fill: yellow !important; }
+  fill: #4aff0b !important; }
 
 .line_4 {
-  stroke: brown !important; }
+  stroke: #2900ff !important; }
 
 .area_4 {
-  fill: brown !important; }
+  fill: #2900ff !important; }
 
 .points_4 circle {
-  fill: brown !important; }
+  fill: #2900ff !important; }
 
 .line_5 {
-  stroke: pink !important; }
+  stroke: #e03fe0 !important; }
 
 .area_5 {
-  fill: pink !important; }
+  fill: #e03fe0 !important; }
 
 .points_5 circle {
-  fill: pink !important; }
+  fill: #e03fe0 !important; }
 
 .line_6 {
   stroke: indigo !important; }

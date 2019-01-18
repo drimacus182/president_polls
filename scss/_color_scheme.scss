@@ -7,12 +7,13 @@ $color_1: blue;
   .points_#{$number} circle { fill: $color !important;}
 }
 
-@include candidate_color(0, red);
-@include candidate_color(1, blue);
-@include candidate_color(2, green);
-@include candidate_color(3, yellow);
-@include candidate_color(4, brown);
-@include candidate_color(5, pink);
+@include candidate_color(0, #58fdff);
+@include candidate_color(1, #ff5954);
+@include candidate_color(2, #fffe09);
+@include candidate_color(3, #4aff0b);
+@include candidate_color(4, #2900ff);
+@include candidate_color(5, #e03fe0);
+
 @include candidate_color(6, indigo);
 @include candidate_color(7, #fa8100);
 @include candidate_color(8, black);

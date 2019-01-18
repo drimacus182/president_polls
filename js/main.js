@@ -1,6 +1,7 @@
 (function() {
     // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Vakarchuk","Boyko","Lyashko","Sadovy"];
     var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko","Lyashko"];
+    // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko"];
     // var candidates = ["Tymoshenko","Poroshenko"];
 
 
