@@ -19,8 +19,7 @@ header {
     height: 2.5em; }
 
 .poll_chart {
-  position: relative;
-  background-color: black; }
+  position: relative; }
   .poll_chart svg {
     width: 100%;
     height: 100%; }
@@ -30,8 +29,9 @@ header {
     top: 0; }
   .poll_chart svg {
     shape-rendering: crispEdges;
-    overflow: visible;
-    stroke: white; }
+    overflow: visible; }
+    .poll_chart svg .cross {
+      stroke: black; }
     .poll_chart svg .axis--x path {
       /*display: none;*/ }
     .poll_chart svg .axis path {
@@ -42,100 +42,78 @@ header {
     .poll_chart svg .tick line {
       opacity: .1;
       stroke-width: 1; }
-    .poll_chart svg .line-pane .line {
+    .poll_chart svg .chart-pane .line {
       fill: none;
       stroke: black;
-      stroke-opacity: 0.4;
+      stroke-opacity: 0.5;
+      shape-rendering: geometricPrecision;
+      stroke-width: 2; }
+      .poll_chart svg .chart-pane .line.boundary {
+        stroke-opacity: 0.3;
+        stroke-width: 1; }
+    .poll_chart svg .chart-pane .area {
+      fill-opacity: 0.3;
+      fill: white;
       shape-rendering: geometricPrecision; }
-    .poll_chart svg .area-pane .area {
-      fill-opacity: 0.2;
-      fill: grey;
-      shape-rendering: geometricPrecision; }
-    .poll_chart svg .points-pane .points circle {
+    .poll_chart svg .chart-pane .points circle {
       fill: grey;
       stroke: none;
+      fill-opacity: 0.7;
       shape-rendering: geometricPrecision; }
 
-.line_0 {
-  stroke: #58fdff !important; }
+.candidate_0.line {
+  stroke: #e41a1c !important; }
+.candidate_0.area {
+  fill: #e41a1c !important; }
+.candidate_0.points circle {
+  fill: #e41a1c !important; }
+.candidate_0.points .line {
+  stroke: #e41a1c !important; }
 
-.area_0 {
-  fill: #58fdff !important; }
+.candidate_1.line {
+  stroke: #377eb8 !important; }
+.candidate_1.area {
+  fill: #377eb8 !important; }
+.candidate_1.points circle {
+  fill: #377eb8 !important; }
+.candidate_1.points .line {
+  stroke: #377eb8 !important; }
 
-.points_0 circle {
-  fill: #58fdff !important; }
+.candidate_2.line {
+  stroke: #4daf4a !important; }
+.candidate_2.area {
+  fill: #4daf4a !important; }
+.candidate_2.points circle {
+  fill: #4daf4a !important; }
+.candidate_2.points .line {
+  stroke: #4daf4a !important; }
 
-.line_1 {
-  stroke: #ff5954 !important; }
+.candidate_3.line {
+  stroke: #984ea3 !important; }
+.candidate_3.area {
+  fill: #984ea3 !important; }
+.candidate_3.points circle {
+  fill: #984ea3 !important; }
+.candidate_3.points .line {
+  stroke: #984ea3 !important; }
 
-.area_1 {
-  fill: #ff5954 !important; }
+.candidate_4.line {
+  stroke: #ff7f00 !important; }
+.candidate_4.area {
+  fill: #ff7f00 !important; }
+.candidate_4.points circle {
+  fill: #ff7f00 !important; }
+.candidate_4.points .line {
+  stroke: #ff7f00 !important; }
 
-.points_1 circle {
-  fill: #ff5954 !important; }
-
-.line_2 {
-  stroke: #fffe09 !important; }
-
-.area_2 {
-  fill: #fffe09 !important; }
-
-.points_2 circle {
-  fill: #fffe09 !important; }
-
-.line_3 {
-  stroke: #4aff0b !important; }
-
-.area_3 {
-  fill: #4aff0b !important; }
-
-.points_3 circle {
-  fill: #4aff0b !important; }
-
-.line_4 {
-  stroke: #2900ff !important; }
-
-.area_4 {
-  fill: #2900ff !important; }
-
-.points_4 circle {
-  fill: #2900ff !important; }
-
-.line_5 {
-  stroke: #e03fe0 !important; }
-
-.area_5 {
-  fill: #e03fe0 !important; }
-
-.points_5 circle {
-  fill: #e03fe0 !important; }
-
-.line_6 {
-  stroke: indigo !important; }
-
-.area_6 {
-  fill: indigo !important; }
-
-.points_6 circle {
-  fill: indigo !important; }
-
-.line_7 {
-  stroke: #fa8100 !important; }
-
-.area_7 {
-  fill: #fa8100 !important; }
-
-.points_7 circle {
-  fill: #fa8100 !important; }
-
-.line_8 {
-  stroke: black !important; }
-
-.area_8 {
-  fill: black !important; }
-
-.points_8 circle {
-  fill: black !important; }
+.candidate_5.line {
+  stroke: #ffff33 !important; }
+.candidate_5.area {
+  fill: #ffff33 !important; }
+.candidate_5.points circle {
+  fill: #ffff33 !important; }
+.candidate_5.points .line {
+  stroke: #ffff33 !important; }
 
 body {
   padding-top: 3em;

@@ -2,19 +2,36 @@ $color_0: red;
 $color_1: blue;
 
 @mixin candidate_color($number, $color) {
-  .line_#{$number} { stroke: $color !important;}
-  .area_#{$number} { fill: $color !important;}
-  .points_#{$number} circle { fill: $color !important;}
+  .candidate_#{$number} {
+    &.line{stroke: $color !important;}
+    &.area { fill: $color !important;}
+    &.points {
+      circle { fill: $color !important;}
+      .line {stroke: $color !important;}
+    }
+  }
 }
 
-@include candidate_color(0, #58fdff);
-@include candidate_color(1, #ff5954);
-@include candidate_color(2, #fffe09);
-@include candidate_color(3, #4aff0b);
-@include candidate_color(4, #2900ff);
-@include candidate_color(5, #e03fe0);
+//@include candidate_color(0, #58fdff);
+//@include candidate_color(1, #ff5954);
+//@include candidate_color(2, #fffe09);
+//@include candidate_color(3, #4aff0b);
+//@include candidate_color(4, #2900ff);
+//@include candidate_color(5, #e03fe0);
 
-@include candidate_color(6, indigo);
-@include candidate_color(7, #fa8100);
-@include candidate_color(8, black);
 
+
+@include candidate_color(0, #e41a1c);
+@include candidate_color(1, #377eb8);
+@include candidate_color(2, #4daf4a);
+@include candidate_color(3, #984ea3);
+@include candidate_color(4, #ff7f00);
+@include candidate_color(5, #ffff33);
+
+
+//"#e41a1c",
+//"#377eb8",
+//"#4daf4a",
+//"#984ea3",
+//"#ff7f00",
+//"#ffff33",

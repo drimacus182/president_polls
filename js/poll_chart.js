@@ -2,6 +2,7 @@ function poll_chart() {
 
     var lines = []
         , areas = []
+        , areaLines = []
         , pointss = []
 
         , x_domain
@@ -18,15 +19,24 @@ function poll_chart() {
 
         , formatMonth = d3.timeFormat("%b")
         , formatYear = d3.timeFormat("%Y")
+        // , colors = [
+        //     "#58fdff",
+        //     "#ff5954",
+        //     "#fffe09",
+        //     "#4aff0b",
+        //     "#2900ff",
+        //     "#e03fe0"
+        // ];
+
         , colors = [
-            "#58fdff",
-            "#ff5954",
-            "#fffe09",
-            "#4aff0b",
-            "#2900ff",
-            "#e03fe0"
+            "#e41a1c",
+            "#377eb8",
+            "#4daf4a",
+            "#984ea3",
+            "#ff7f00",
+            "#ffff33",
         ];
-    
+
     function my(selection) {
         selection.each(function(d) {
 
@@ -43,8 +53,10 @@ function poll_chart() {
                 .attr("width", w)
                 .attr("height", h);
 
-            const ctx = canvas.node().getContext('2d');
-            ctx.globalAlpha = 0.5;
+            const context = canvas.node().getContext('2d');
+            context.globalAlpha = 1;
+
+            // context.globalCompositeOperation = "overlay";
 
 
             var svg = container
@@ -57,7 +69,16 @@ function poll_chart() {
                 , g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
                 ;
 
-            ctx.translate(margin.left, margin.top);
+            context.translate(margin.left, margin.top);
+
+            svg.append("symbol")
+                .attr("id", "cross")
+                .attr("width", 8)
+                .attr("height", 8)
+                .attr("viewBox", "-5 -5 10 10")
+                .append("path")
+                .attr("d", "M-5 -5 L5 5 M5 -5 L-5 5")
+
 
             x = d3.scaleTime()
                 .range([0, width]);
@@ -76,11 +97,38 @@ function poll_chart() {
                 .y1(d => y(d.v1))
                 .curve(d3.curveLinear);
 
-            var area_gen_canvas = canvas_grad_line()
+
+            var line_gen_canvas = d3.line()
+                .x(d => x(d.date))
+                .y(d => y(d.v))
+                .curve(d3.curveLinear)
+                .context(context);
+
+            var line_gen_top = d3.line()
+                .x(d => x(d.date))
+                .y(d => y(d.v1))
+                .curve(d3.curveLinear)
+                // .context(context);
+
+            var line_gen_bottom = d3.line()
+                .x(d => x(d.date))
+                .y(d => y(d.v0))
+                .curve(d3.curveLinear)
+                // .context(context);
+
+            var area_gen_canvas = d3.area()
+                .x(d => x(d.date))
+                .y0(d => y(d.v0))
+                .y1(d => y(d.v1))
+                .context(context);
+
+            var area_gen_gradient_canvas = canvas_grad_line()
                 .x(d => x(d.date))
                 .y(d => y((d.v0 + d.v1) / 2))
                 .width(d => y(d.v0) - y(d.v1))
-                .context(ctx);
+                .context(context);
+
+
 
             if (x_domain) x.domain(x_domain)
             else throw "Auto x domain not implemented"
@@ -93,7 +141,7 @@ function poll_chart() {
                 .tickSizeOuter(10)
                 .tickSizeInner(-height)
                 .tickPadding(5)
-                .tickFormat(multiFormat);
+                .tickFormat(multiFormat)
 
             var yAxis = d3.axisLeft(y)
                 .ticks(3)
@@ -104,7 +152,7 @@ function poll_chart() {
             if (yFormat) yAxis.tickFormat(yFormat);
             if (yTickValues) yAxis.tickValues(yTickValues);
             if (yTicks) yAxis.ticks(yTicks);
-            if (xTicks) xAxis.ticks(xTicks);
+            if (xTicks) xAxis.tickValues(xTicks.map(p => p.date));
 
             g.append("g")
                 .attr("class", "axis axis--x")
@@ -117,55 +165,125 @@ function poll_chart() {
 
             var area_g = g
                 .append("g")
-                .attr("class", "area-pane");
+                .attr("class", "chart-pane area-pane");
 
             var line_g = g
                 .append("g")
-                .attr("class", "line-pane");
+                .attr("class", "chart-pane line-pane");
 
             var points_g = g
                 .append("g")
-                .attr("class", "points-pane");
+                .attr("class", "chart-pane points-pane");
 
-            function drawLine(lineobj) {
-                line_g
+            function drawLineSvg(lineobj, pane) {
+                pane
                     .append("path")
                     .attr("class", "line " + lineobj["class"])
                     .attr("d", line_gen(lineobj.data));
+
+                // pane
+                //     .append("path")
+                //     .attr("class", "line " + lineobj["class"])
+                //     .attr("d", line_gen_bottom(lineobj.data));
+                //
+                // pane
+                //     .append("path")
+                //     .attr("class", "line " + lineobj["class"])
+                //     .attr("d", line_gen_top(lineobj.data));
             }
 
-            function drawArea(areaobj) {
-                area_g
+            function drawAreaSvg(areaobj, pane) {
+                pane
                     .append("path")
                     .attr("class", "area " + areaobj["class"])
                     .attr("d", area_gen(areaobj.data));
             }
+            
+            function drawAreaLinesSvg(areaLine) {
+                drawAreaSvg(areaLine, area_g);
+                drawLineSvg(areaLine, area_g)
+
+            }
 
             function drawAreaCanvas(areaobj, color) {
-                area_gen_canvas.color(color);
-                area_gen_canvas(areaobj.data);
+                context.beginPath();
+                context.fillStyle = color;
+                // area_gen_canvas(areaobj.data);
+                area_gen_gradient_canvas.color(color)(areaobj.data);
+                context.fill();
+
+
+
+                var c = d3.color(color);
+                c.opacity = 0.5;
+
+                context.lineWidth = 5;
+                context.beginPath();
+                context.strokeStyle = c.toString();
+                line_gen_canvas(areaobj.data);
+                context.stroke();
+            }
+
+            function drawAreaLinesCanvas(areaLine, color) {
+                var c_area = d3.color(color);
+                c_area.opacity = 0.15;
+
+                drawAreaCanvas(areaLine, c_area.toString());
+
+                context.beginPath();
+                context.fillStyle = c_area.toString();
+                area_gen_canvas(areaLine.data);
+                context.fill();
+
+                context.lineWidth = 1;
+                context.beginPath();
+                context.strokeStyle = color;
+                line_gen_canvas(areaLine.data);
+                context.stroke();
+
+                context.lineWidth = 1;
+                context.beginPath();
+                context.strokeStyle = color;
+                line_gen_bottom_b_canvas(areaLine.data);
+                context.stroke();
+
             }
 
             function drawPoints(pointsobj) {
-                points_g
+                var ent = points_g
                     .append("g")
                     .attr("class", "points " + pointsobj["class"])
-                    .selectAll("circle")
+                    .selectAll(".cross")
                     .data(pointsobj.data)
-                    .enter()
-                    .append("circle")
+                    .enter();
+
+                // ent.append("use")
+                //     .attr("class", "cross")
+                //     .attr("xlink:href", "#cross")
+                //     .attr("class", "line")
+                //     .attr("x", d => x(d.date))
+                //     .attr("y", d => y(d.v))
+
+                ent.append("circle")
                     .attr("r", 2)
                     .attr("cx", d => x(d.date))
                     .attr("cy", d => y(d.v))
             }
+            
+            areaLines.forEach(function(areaLineObj, i){
+                // drawAreaLinesCanvas(areaLineObj, colors[i]);
+                // drawAreaLinesSvg(areaLineObj)
+                // drawAreaCanvas(areaLineObj, colors[i]);
 
-            areas.forEach(function(areaobj, i){
-                drawAreaCanvas(areaobj, colors[i]);
-            });
+                drawAreaLinesSvg(areaLineObj, area_g);
 
-            lines.forEach(function(lineobj){
-                drawLine(lineobj);
+                // drawLine
+
             });
+            //
+            // lines.forEach(function(areaLineObj, i){
+            //     drawLineSvg(areaLineObj, line_g)
+            // });
 
             pointss.forEach(function(pointsobj){
                 drawPoints(pointsobj);
@@ -173,6 +291,19 @@ function poll_chart() {
         });
     }
 
+    function opacify(color, op) {
+        color = d3.color(color);
+
+        return d3.rgb(
+            opacify_component(color.r, op),
+            opacify_component(color.g, op),
+            opacify_component(color.b, op)
+        ).toString();
+
+        function opacify_component(c, op){
+            return c * op + (1 - op) * 255;
+        }
+    }
 
     function multiFormat(date) {
         return (d3.timeYear(date) < date ? formatMonth : formatYear)(date);
@@ -187,6 +318,12 @@ function poll_chart() {
     my.addArea = function(value) {
         if (!arguments.length) return;
         areas.push(value);
+        return my;
+    };
+
+    my.addAreaLine = function(value) {
+        if (!arguments.length) return;
+        areaLines.push(value);
         return my;
     };
 
@@ -231,6 +368,7 @@ function poll_chart() {
         xTicks = value;
         return my;
     };
+
 
     return my;
 }
