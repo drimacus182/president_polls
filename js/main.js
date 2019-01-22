@@ -1,5 +1,5 @@
 (function() {
-    var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko","Lyashko"];
+    // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko","Lyashko"];
     // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko"];
     // var candidates = ["Tymoshenko","Poroshenko"];
     var candidates = ["Tymoshenko","Poroshenko","Grytsenko"];
@@ -49,23 +49,17 @@
                 });
 
 
-            console.log(points_data);
-
             var lines_data = d3.nest()
                 .key(d => d.candidate)
                 .entries(raw_data_lines)
                 .filter(obj => candidates.includes(obj.key));
-
-            console.log(raw_data_lines);
-            console.log(lines_data);
-
+            
             console.log(polls)
 
             var main_chart = poll_chart()
                 .x_domain(d3.extent(raw_data_lines, d => d.date))
                 .y_domain([3,18])
-                .xTicks(polls);
-
+                .xTickValues(polls);
 
 
             lines_data.forEach(function(line, i) {
@@ -73,14 +67,12 @@
                     main_chart.addAreaLine({
                         data: line.values.map(d => ({date: d.date, v: d.median, v0: d.lower, v1: d.upper})),
                         "class": "candidate_" + i + " " + line.key
-                    })
+                    });
                 // } else {
                     main_chart.addLine({
                         data: line.values.map(d => ({date: d.date, v: d.median, v0: d.lower, v1: d.upper})),
                         "class": "candidate_" + i + " " + line.key
-                    })
-
-
+                    });
                 // }
             });
 
@@ -94,34 +86,10 @@
 
             d3.select("#main_chart").call(main_chart);
 
-            
-            
-            
 
 
 
 
-            var main_chart2 = poll_chart()
-                .x_domain(d3.extent(raw_data_lines, d => d.date))
-                .y_domain([3,18])
-
-
-            points_data.forEach(function(candidate_obj, i) {
-                main_chart2.addPoints({
-                    data: candidate_obj.values,
-                    "class": "candidate_" + i + " " + candidate_obj.key
-                })
-            });
-
-
-            lines_data.forEach(function(line, i) {
-                main_chart2.addAreaLine({
-                    data: line.values.map(d => ({date: d.date, v: d.median, v0: d.lower, v1: d.upper})),
-                    "class": "candidate_" + i + " " + line.key
-                })
-            });
-
-            d3.select("#main_chart2").call(main_chart);
 
 
         });
