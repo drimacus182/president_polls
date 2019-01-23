@@ -20,26 +20,37 @@
 
     //stroke: white;
 
-    .axis--x path {
-      /*display: none;*/
-    }
-
     .axis path {
       opacity: .1;
       stroke-width: 1;
-      //display: none;
     }
 
-    .axis--y path {
+    .axis--x {
+      path.domain {
+        stroke: black;
+        opacity: 1;
+      }
+
+      line {
+        display: none;
+      }
+    }
+
+    .axis--y path.domain {
+      stroke: black;
+      opacity: 1;
+
       display: none;
     }
 
-    .tick line {
-      opacity: .1;
-      stroke-width: 1;
-      //display: none;
-    }
+    .axis--y .tick {
+      line {
+        stroke: #ddd;
+        stroke-width: 1;
+      }
 
+      text {display:none;}
+    }
 
     .chart-pane .line {
       fill: none;
