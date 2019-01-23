@@ -18,6 +18,8 @@ function poll_chart_vertical() {
         , xTickValues
         , x
 
+        , day_format = d3.timeFormat("%d %b %Y")
+
         , formatMonth = d3.timeFormat("%B")
         , formatYear = d3.timeFormat("%Y")
 
@@ -62,10 +64,10 @@ function poll_chart_vertical() {
             context.translate(margin.left, margin.top);
 
 
-            var y = d3.scaleLinear()
+            var y = d3.scaleTime()
                 .range([height, 0]);
 
-            var x = d3.scaleTime()
+            var x = d3.scaleLinear()
                 .range([0, width]);
 
             var line_gen = d3.line()
@@ -116,13 +118,13 @@ function poll_chart_vertical() {
                 .tickSizeOuter(0)
                 .tickSizeInner(0)
                 .tickPadding(5)
+                // .tickFormat(formatMonth);
                 .tickFormat(multiFormat);
 
             if (yTicks) yAxis.ticks(yTicks);
             if (yTickValues) yAxis_ticks
                 .tickValues(yTickValues.map(poll => poll.date))
 
-            yAxis.tickFormat(multiFormat);
 
             g.append("rect")
                 .attr("class", "mouse-trap")
@@ -187,8 +189,6 @@ function poll_chart_vertical() {
                 drawPoints(pointsobj);
             });
 
-            var percents = areaLines.map(arealine => lastElement(arealine.data).v);
-
             var top_labels = g
                 .selectAll("text.result")
                 .data(areaLines)
@@ -203,10 +203,20 @@ function poll_chart_vertical() {
             var top_line = g
                 .append("line")
                 .attr("class", "top-line")
-                .attr("x1", 0)
-                .attr("x2", width)
+                .attr("x1", -50)
+                .attr("x2", width + 50)
                 .attr("y1", 0)
                 .attr("y2", 0);
+
+            var top_date_label = g
+                .append("text")
+                .attr("class", "moving-date")
+                .attr("x", 0)
+                .attr("dx", "-1em")
+                .attr("y", 0)
+                .attr("dy", "-0.5em")
+                .text(day_format(y.invert(0)));
+
 
             function moveTopLine(mouse) {
                 mouse[1] = Math.max(0, mouse[1])
@@ -222,7 +232,11 @@ function poll_chart_vertical() {
 
                 top_line
                     .attr("y1", mouse[1])
-                    .attr("y2", mouse[1])
+                    .attr("y2", mouse[1]);
+
+                top_date_label
+                    .attr("y", mouse[1])
+                    .text(day_format(y.invert(mouse[1])));
 
             }
 

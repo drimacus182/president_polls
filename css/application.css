@@ -72,6 +72,8 @@ header {
     .poll_chart svg text.result {
       text-anchor: middle;
       font-size: 2em; }
+    .poll_chart svg text.moving-date {
+      text-anchor: end; }
     .poll_chart svg .chart-pane .area {
       fill-opacity: 0.2;
       fill: white;
