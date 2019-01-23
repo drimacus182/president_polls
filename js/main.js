@@ -41,52 +41,49 @@
 
             var polls = d3.nest()
                 .key(d => d.poll_house + "---" + d.date)
-                .entries(points_data_long)
+                .entries(points_data_long);
 
             polls.forEach(function(d) {
-                    d.date = d.values[0].date;
-                    d.poll_house = d.values[0].poll_house
-                });
+                d.date = d.values[0].date;
+                d.poll_house = d.values[0].poll_house
+            });
 
 
             var lines_data = d3.nest()
                 .key(d => d.candidate)
                 .entries(raw_data_lines)
                 .filter(obj => candidates.includes(obj.key));
-            
-            console.log(polls)
 
-            var main_chart = poll_chart()
-                .x_domain(d3.extent(raw_data_lines, d => d.date))
-                .y_domain([3,18])
-                .xTickValues(polls);
+            // lines_data.forEach(line => line.values = line.values.filter((v, i) => i % 150 == 0));
+
+            var main_chart_vertical = poll_chart_vertical()
+                .y_domain(d3.extent(raw_data_lines, d => d.date))
+                .x_domain([3,18])
+                .yTickValues(polls);
 
 
             lines_data.forEach(function(line, i) {
                 // if (i < 2) {
-                    main_chart.addAreaLine({
-                        data: line.values.map(d => ({date: d.date, v: d.median, v0: d.lower, v1: d.upper})),
-                        "class": "candidate_" + i + " " + line.key
-                    });
+                main_chart_vertical.addAreaLine({
+                    data: line.values.map(d => ({date: d.date, v: d.median, v0: d.lower, v1: d.upper})),
+                    "class": "candidate_" + i + " " + line.key
+                });
                 // } else {
-                    main_chart.addLine({
-                        data: line.values.map(d => ({date: d.date, v: d.median, v0: d.lower, v1: d.upper})),
-                        "class": "candidate_" + i + " " + line.key
-                    });
+                main_chart_vertical.addLine({
+                    data: line.values.map(d => ({date: d.date, v: d.median, v0: d.lower, v1: d.upper})),
+                    "class": "candidate_" + i + " " + line.key
+                });
                 // }
             });
 
             points_data.forEach(function(candidate_obj, i) {
-                main_chart.addPoints({
+                main_chart_vertical.addPoints({
                     data: candidate_obj.values,
                     "class": "candidate_" + i + " " + candidate_obj.key
                 })
             });
 
-
-            d3.select("#main_chart").call(main_chart);
-
-
+            d3.select("#main_chart_vertical").call(main_chart_vertical);
 
 
 

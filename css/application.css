@@ -32,16 +32,23 @@ header {
     overflow: visible; }
     .poll_chart svg .cross {
       stroke: black; }
-    .poll_chart svg .axis--x path {
-      /*display: none;*/ }
     .poll_chart svg .axis path {
       opacity: .1;
       stroke-width: 1; }
-    .poll_chart svg .axis--y path {
+    .poll_chart svg .axis--x path.domain {
+      stroke: black;
+      opacity: 1; }
+    .poll_chart svg .axis--x line {
       display: none; }
-    .poll_chart svg .tick line {
-      opacity: .1;
+    .poll_chart svg .axis--y path.domain {
+      stroke: black;
+      opacity: 1;
+      display: none; }
+    .poll_chart svg .axis--y .tick line {
+      stroke: #ddd;
       stroke-width: 1; }
+    .poll_chart svg .axis--y .tick text {
+      display: none; }
     .poll_chart svg .chart-pane .line {
       fill: none;
       stroke: black;

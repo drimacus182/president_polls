@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 <html>
 <head>
-    <title>Вибори, вибори!</title>
+    <title>Вибори-2019. Рейтинги кандидатів.</title>
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/application.css" type="text/css">
@@ -15,8 +15,8 @@
 
     <meta property="og:site_name" content="ТЕКСТИ.ORG.UA"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:title" content="Вибори, вибори!"/>
-    <meta property="og:image" content="http://texty.org.ua/cars/image/og.jpg"/>
+    <meta property="og:title" content="Вибори-2019. Рейтинги кандидатів."/>
+    <meta property="og:image" content="http://texty.org.ua/d/2019/president_polls/image/og.jpg"/>
     <meta property="og:description" content="Аналізуйте дані Сервісного центру МВС про реєстрацію автомобілів"/>
     <meta property="og:url" content="http://texty.org.ua/cars">
 
@@ -24,13 +24,13 @@
     <meta property="twitter:account_id" content="49572937"/>
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:url" content="http://texty.org.ua/cars"/>
-    <meta name="twitter:title" content="Вибори, вибори!"/>
+    <meta name="twitter:title" content="Вибори-2019. Рейтинги кандидатів."/>
     <meta name="twitter:description" content="Аналізуйте дані Сервісного центру МВС про реєстрацію автомобілів"/>
-    <meta name="twitter:image:src" content="http://texty.org.ua/cars/image/og.jpg"/>
+    <meta name="twitter:image:src" content="http://texty.org.ua/d/2019/president_polls/image/og.jpg"/>
     <meta name="twitter:image:width" content="1200"/>
     <meta name="twitter:image:height" content="630"/>
     <!-- Other Meta Tags -->
-    <meta name="title" content="Вибори, вибори!">
+    <meta name="title" content="Вибори-2019. Рейтинги кандидатів.">
     <meta name="description" content="Аналізуйте дані Сервісного центру МВС про реєстрацію автомобілів">
 
 </head>
@@ -47,18 +47,35 @@
 
 <div class="container-fluid main-title">
     <div class="row justify-content-center">
-        <h3>Вибори, вибори!</h3>
+        <h3>Вибори-2019. Рейтинги кандидатів</h3>
     </div>
     <div class="row justify-content-center">
-        <p>Оновлено: 20 січня 2019</p>
+        <h4>(модель "poll of polls")</h4>
     </div>
 </div>
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div id="main_chart" class="poll_chart" data-aspect-ratio="0.2" style="width: 80%; height: 400px"></div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <p>На графіку показані агреговані рейтинги (потенційних) кандидатів у президенти України на виборах 2019 року.</p>
         </div>
     </div>
+
+    <div class="row justify-content-center">
+        <p>Оновлено: 20 січня 2019</p>
+    </div>
+
+    <div class="row">
+        <div class="col-12 justify-content-center" style="display: flex">
+            <div id="main_chart_vertical" class="poll_chart" data-aspect-ratio="0.2" style="width: 800px; height: 800px"></div>
+        </div>
+    </div>
+
+    <!--<div class="row">-->
+        <!--<div class="col-12">-->
+            <!--<div id="main_chart" class="poll_chart" data-aspect-ratio="0.2" style="width: 80%; height: 400px"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
 
     <!--<div class="row">-->
         <!--<div class="col-12">-->
@@ -70,19 +87,82 @@
     <div class="row justify-content-center" style="margin-top: 5em;">
 
         <div class="col-12 col-md-8 col-lg-6">
-            <p>Вперше транспортний засіб потрапляє в Єдиний державний реєстр МВС стосовно за регіоном, датою випуску, маркою та моделлю, типом палива, кольором та ін.
-            </p>
-
+            <p>Кожна лінія - це динаміка *середнього значення* рівня підтримки, який ми порахували за допомогою ймовірнісної моделі[методологія].</p>
+            <p>Пам'ятайте, що середнє значення - це спрощення. Результатом цієї моделі є розподіл ймовірності для рівня підтримки, і крім середнього значення треба звертати увагу на можливий "коридор значень".</p>
+            <p>Тому, зверніть увагу на зону однакового кольору навколо кожної лінії (навколо середнього значення "рейтингу") - це зона "невизначеності". Тобто, це той коридор, в яких з великою ймовірністю (більше 95%) потрапляє рівень підтримки. Більш інтенсивний колір показує більш ймовірне його значення. Зверніть увагу, що у періоди, коли довго немає соцопитувань, коридор ("зона невизначеності") навколо середнього значення збільшується ("точність" моделі стає менше, до появи наступних опитувань).</p>
+            <p>Наприклад, станом на 15 січня, середній рівень підтримки для Порошенка на 0.5 відсотка більше, ніж у Зеленського. Але їх "коридори" практично перекриваються - це означає, що насправді рівень підтримки може навпаки бути більше у Зеленського (з імовірністю в 30%, скажімо).</p>
+            <p>Наголошуємо - це рівень підтримки, а не прогноз результатів виборів!</p>
+            <p>Для того, щоб якомога точніше оцінити "рейтинги" кандидатів, ми використали всі наявні на сьогодні результати соціологічних опитувань. Якщо зробити це правильно, то агрегований "рейтинг" буде більш точно відображати рівень підтримки, ніж кожне окреме соцопитування.  Модель, яку ми використали для агрегації, є експериментальною, ми не даємо гарантій щодо її точності, і вона може бути змінена протягом виборчої кампанії. Це перша з нам відомих спроб застосувати "poll of polls" для даних соцопитувань українських служб.</p>
+            <p>Проблема з опитуваннями наступна - у нас вони дуже рідко проводяться, навіть під час виборчої кампанії. Для порівняння - під час фінальної частини президентської кампанії 2016 року в США результати соцопитувань з'являлися щоденно.</p>
+            <p>Також, що теж дуже важливо - немає гарантій, що навіть найбільш послідовні (у сенсі частоти опитувань) та найбільш респектабельні (результати яких найбільше збігалися з результатами виборів) соціологічні установи не будуть "накручувати" відсотки для замовника опитування. Йдеться не стільки про махінації з арифметикою - досвідчені соціологи можуть досягнути "потрібного" результату за допомогою "дизайну" опитування - наприклад формулюючи відповідним чином питання або формуючи вибірку.</p>
+            <p>Ще одна перевага моделі "poll of polls" - це те, можна порівнювати не лише окремі результати опитувань, а динаміку рівня підтримки, для кожного дня перед виборами.</p>
         </div>
     </div>
 </div>
+
+<div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-8">
+            <div id="button">
+                <h3>TEXTY.ORG.UA — незалежне видання без навʼязливої реклами й замовних матеріалів. Щоб працювати далі, нам потрібна ваша підтримка. </h3>
+
+                <div id="button-container">
+                    <a id="support-us" class="button" target="_blank" href="https://www.liqpay.ua/api/3/checkout?data=eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXlkb25hdGUiLCJwdWJsaWNfa2V5IjoiaTc2NjUwNTYyODI3IiwiYW1vdW50IjoiNTAiLCJjdXJyZW5jeSI6IlVBSCIsImRlc2NyaXB0aW9uIjoi0J%2FQvtC20LXRgNGC0LLQsCIsInR5cGUiOiJkb25hdGUiLCJsYW5ndWFnZSI6InVrIn0%3D&amp;signature=YFkd4Z74QCJXRxMTPoWm0JVlkX4%3D">ПОЖЕРТВУВАТИ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #button {
+        width: 100%; /* 100% of parent container*/
+        margin:auto;
+        line-height: 1.6;
+        margin-top: 5em;
+        margin-bottom: 5em;
+    }
+
+    #button > h3 {
+        font-weight:800;
+        text-align: center;
+        font-size:18px;
+        margin-bottom: 1em;
+        line-height: 1.6;
+    }
+
+    #button > #button-container {
+        width:100%;
+        display:flex;
+        font-family: Verdana, Arial, sans-serif;
+        font-style: normal;
+    }
+
+    #button > #button-container > #support-us {
+        display: block;
+        color: #383e47;
+        text-decoration: none;
+        font-weight:700;
+
+        width:auto;
+        width:max-content;
+        background-color: #ffc423;
+        padding: 10px;
+        outline: none;
+        border:none;
+        font-size:18px;
+        margin:auto;
+        cursor:pointer;
+    }
+</style>
+
 
 <div class="container footer">
     <div class="credits">
         <div class="row justify-content-center">
             <div>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=http://texty.org.ua/cars/" class="share-btn"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://twitter.com/intent/tweet?text=http://texty.org.ua/cars/" class="share-btn"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://texty.org.ua/d/2019/president_polls/" class="share-btn"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/intent/tweet?text=http://texty.org.ua/d/2019/president_polls/" class="share-btn"><i class="fab fa-twitter"></i></a>
                 <h3>Створено Текстами</h3>
             </div>
         </div>
@@ -94,6 +174,10 @@
     </div>
 </div>
 
+
+
+
+
 <script src="lib/d3.v4.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
@@ -102,6 +186,7 @@
 <script src="js/canvas_grad_line.js"></script>
 <!--<script src="js/canvas_grad_line_2.js"></script>-->
 <script src="js/poll_chart.js"></script>
+<script src="js/poll_chart_vertical.js"></script>
 <script src="js/main.js"></script>
 
 <script type="text/javascript">
