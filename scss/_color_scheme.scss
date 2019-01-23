@@ -9,6 +9,7 @@ $color_1: blue;
       circle { fill: $color !important;}
       .line {stroke: $color !important;}
     }
+    &.label {fill: $color !important;}
   }
 }
 

@@ -9,7 +9,7 @@ function poll_chart_vertical() {
         , y_domain
 
         , percentFormat = (function() {
-            var base = d3.format(".0%");
+            var base = d3.format(".1%");
             return function(val){ return base(val/100)};
         })()
 
@@ -18,7 +18,7 @@ function poll_chart_vertical() {
         , xTickValues
         , x
 
-        , formatMonth = d3.timeFormat("%b")
+        , formatMonth = d3.timeFormat("%B")
         , formatYear = d3.timeFormat("%Y")
 
         , colors = [
@@ -27,7 +27,7 @@ function poll_chart_vertical() {
             "#4daf4a",
             "#984ea3",
             "#ff7f00",
-            "#ffff33",
+            "#ffff33"
         ];
 
     function my(selection) {
@@ -72,10 +72,17 @@ function poll_chart_vertical() {
                 .x(d => x(d.v))
                 .y(d => y(d.date))
                 .curve(d3.curveLinear);
+                // .curve(d3.curveStep);
 
             var area_gen = d3.area()
                 .x0(d => x(d.v0))
                 .x1(d => x(d.v1))
+                .y(d => y(d.date))
+                .curve(d3.curveLinear);
+
+            var area_center_gen = d3.area()
+                .x0(d => x(d.v) - Math.abs(x(d.v0) - x(d.v1)) * 0.02)
+                .x1(d => x(d.v) + Math.abs(x(d.v0) - x(d.v1)) * 0.02)
                 .y(d => y(d.date))
                 .curve(d3.curveLinear);
 
@@ -100,27 +107,56 @@ function poll_chart_vertical() {
                 .tickValues(x.domain())
                 .tickFormat(percentFormat);
 
-            var yAxis = d3.axisLeft(y)
+            var yAxis_ticks = d3.axisLeft(y)
                 .tickSizeOuter(0)
                 .tickSizeInner(-width)
+                .tickPadding(5);
+
+            var yAxis = d3.axisLeft(y)
+                .tickSizeOuter(0)
+                .tickSizeInner(0)
                 .tickPadding(5)
                 .tickFormat(multiFormat);
 
-            // if (yFormat) yAxis.tickFormat(yFormat);
-            // if (yTickValues) yAxis.tickValues(yTickValues);
             if (yTicks) yAxis.ticks(yTicks);
-            if (yTickValues) yAxis
-                .tickValues(yTickValues.map(function(poll){ poll.date.__poll_house__ = poll.poll_house; return poll.date }))
-                .tickFormat(d => d.__poll_house__);
+            if (yTickValues) yAxis_ticks
+                .tickValues(yTickValues.map(poll => poll.date))
+
+            yAxis.tickFormat(multiFormat);
 
             g.append("g")
                 .attr("class", "axis axis--x")
-                // .attr("transform", "translate(0," + height + ")")
                 .call(xAxis);
 
             g.append("g")
-                .attr("class", "axis axis--y")
-                .call(yAxis);
+                .attr("class", "axis axis--y axis--y--ticks")
+                .call(yAxis_ticks);
+
+            var year_lines = g.append("g").attr("class", "year-lines-pane");
+
+            year_lines
+                .append("line")
+                .attr("class", "year-line")
+                .attr("x1", 0)
+                .attr("x2", width)
+                .attr("y1", y(new Date(2018, 0, 1)))
+                .attr("y2", y(new Date(2018, 0, 1)));
+
+
+            year_lines
+                .append("line")
+                .attr("class", "year-line")
+                .attr("x1", 0)
+                .attr("x2", width)
+                .attr("y1", y(new Date(2019, 0, 1)))
+                .attr("y2", y(new Date(2019, 0, 1)));
+
+
+            g.append("g")
+                .attr("class", "axis axis--y axis--y--labels")
+                .call(yAxis)
+
+
 
             var area_g = g
                 .append("g")
@@ -142,20 +178,76 @@ function poll_chart_vertical() {
             pointss.forEach(function(pointsobj){
                 drawPoints(pointsobj);
             });
-            
-            
-            //
-            //
-            //
-            //
 
+            var percents = areaLines.map(arealine => lastElement(arealine.data).v);
 
+            var top_labels = g
+                .selectAll("text.result")
+                .data(areaLines)
+                .enter()
+                .append("text")
+                .attr("class", (line, i) => "result label candidate_" + i)
+                .attr("x", line => x(lastElement(line.data).v))
+                .attr("y", 0)
+                .attr("dy", "-0.5em")
+                .text(line => percentFormat(lastElement(line.data).v));
+
+            var top_line = g
+                .append("line")
+                .attr("class", "top-line")
+                .attr("x1", 0)
+                .attr("x2", width)
+                .attr("y1", 0)
+                .attr("y2", 0);
+
+            function moveTopLine(mouse) {
+                mouse[1] = Math.max(0, mouse[1])
+
+                var date = y.invert(mouse[1]);
+
+                // console.log(date);
+                //
+                top_labels
+                    .attr("y", mouse[1])
+                    .attr("x", line => x(findClosestDataForDate(line.data, date).v))
+                    .text(line => percentFormat((findClosestDataForDate(line.data, date).v)));
+
+                top_line
+                    .attr("y1", mouse[1])
+                    .attr("y2", mouse[1])
+
+            }
+
+            function findClosestDataForDate(line_data, date) {
+                var min_dist = Math.abs(date - line_data[0].date);
+                var min_dist_i = 0;
+
+                for (var i = 0; i< line_data.length; i++) {
+                    var dist = Math.abs(date - line_data[i].date);
+
+                    if (dist < min_dist) { min_dist = dist; min_dist_i = i;}
+                }
+
+                return line_data[min_dist_i];
+            }
+
+            g.on("mousemove", function(){
+                var mouse = d3.mouse(this);
+                moveTopLine(mouse);
+
+            });
             
             function drawLineSvg(areaLineObj, pane) {
                 pane
                     .append("path")
                     .attr("class", "line " + areaLineObj["class"])
                     .attr("d", line_gen(areaLineObj.data));
+
+                // pane
+                //     .append("path")
+                //     .attr("class", "area center " + areaLineObj["class"])
+                //     .attr("d", area_center_gen(areaLineObj.data));
+
             }
 
             function drawAreaSvg(areaLineObj, pane) {
@@ -196,7 +288,11 @@ function poll_chart_vertical() {
                     .attr("cx", d => x(d.v))
                     .attr("cy", d => y(d.date))
             }
-            
+
+
+            function lastElement(arr) {
+                return arr[arr.length - 1];
+            }
 
         });
     }
@@ -242,11 +338,11 @@ function poll_chart_vertical() {
         return my;
     };
 
-    my.yFormat = function(value) {
-        if (!arguments.length) return yFormat;
-        yFormat = value;
-        return my;
-    };
+    // my.yFormat = function(value) {
+    //     if (!arguments.length) return yFormat;
+    //     yFormat = value;
+    //     return my;
+    // };
 
     my.yTickValues = function(value) {
         if (!arguments.length) return yTickValues;

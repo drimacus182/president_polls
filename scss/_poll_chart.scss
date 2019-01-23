@@ -18,7 +18,9 @@
       stroke: black;
     }
 
-    //stroke: white;
+  > g {
+    cursor: crosshair;
+  }
 
     .axis path {
       opacity: .1;
@@ -36,6 +38,9 @@
       }
     }
 
+    line.year-line {stroke: black;}
+    line.top-line {stroke: black; stroke-dasharray: 4 4}
+
     .axis--y path.domain {
       stroke: black;
       opacity: 1;
@@ -43,7 +48,7 @@
       display: none;
     }
 
-    .axis--y .tick {
+    .axis--y.axis--y--ticks .tick {
       line {
         stroke: #ddd;
         stroke-width: 1;
@@ -52,23 +57,39 @@
       text {display:none;}
     }
 
+    .axis--y.axis--y--labels .tick {
+      text {
+        fill: #777;
+      }
+    }
+
     .chart-pane .line {
       fill: none;
       stroke: black;
-      stroke-opacity: 0.5;
+      stroke-opacity: 0.9;
       //stroke-dasharray: 10,10;
       shape-rendering: geometricPrecision;
-      stroke-width: 2;
+      stroke-width: 3;
 
       &.boundary {
         stroke-opacity: 0.3;
-        //stroke-dasharray: 5,5;
         stroke-width: 1;
       }
     }
 
+    text.result {
+      text-anchor: middle;
+      font-size: 2em;
+    }
+
     .chart-pane .area {
-      fill-opacity: 0.3;
+      fill-opacity: 0.2;
+      fill: white;
+      shape-rendering: geometricPrecision;
+    }
+
+    .chart-pane .area.center {
+      fill-opacity: 0.8;
       fill: white;
       shape-rendering: geometricPrecision;
     }

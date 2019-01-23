@@ -32,6 +32,8 @@ header {
     overflow: visible; }
     .poll_chart svg .cross {
       stroke: black; }
+    .poll_chart svg > g {
+      cursor: crosshair; }
     .poll_chart svg .axis path {
       opacity: .1;
       stroke-width: 1; }
@@ -40,26 +42,40 @@ header {
       opacity: 1; }
     .poll_chart svg .axis--x line {
       display: none; }
+    .poll_chart svg line.year-line {
+      stroke: black; }
+    .poll_chart svg line.top-line {
+      stroke: black;
+      stroke-dasharray: 4 4; }
     .poll_chart svg .axis--y path.domain {
       stroke: black;
       opacity: 1;
       display: none; }
-    .poll_chart svg .axis--y .tick line {
+    .poll_chart svg .axis--y.axis--y--ticks .tick line {
       stroke: #ddd;
       stroke-width: 1; }
-    .poll_chart svg .axis--y .tick text {
+    .poll_chart svg .axis--y.axis--y--ticks .tick text {
       display: none; }
+    .poll_chart svg .axis--y.axis--y--labels .tick text {
+      fill: #777; }
     .poll_chart svg .chart-pane .line {
       fill: none;
       stroke: black;
-      stroke-opacity: 0.5;
+      stroke-opacity: 0.9;
       shape-rendering: geometricPrecision;
-      stroke-width: 2; }
+      stroke-width: 3; }
       .poll_chart svg .chart-pane .line.boundary {
         stroke-opacity: 0.3;
         stroke-width: 1; }
+    .poll_chart svg text.result {
+      text-anchor: middle;
+      font-size: 2em; }
     .poll_chart svg .chart-pane .area {
-      fill-opacity: 0.3;
+      fill-opacity: 0.2;
+      fill: white;
+      shape-rendering: geometricPrecision; }
+    .poll_chart svg .chart-pane .area.center {
+      fill-opacity: 0.8;
       fill: white;
       shape-rendering: geometricPrecision; }
     .poll_chart svg .chart-pane .points circle {
@@ -76,6 +92,8 @@ header {
   fill: #e41a1c !important; }
 .candidate_0.points .line {
   stroke: #e41a1c !important; }
+.candidate_0.label {
+  fill: #e41a1c !important; }
 
 .candidate_1.line {
   stroke: #377eb8 !important; }
@@ -85,6 +103,8 @@ header {
   fill: #377eb8 !important; }
 .candidate_1.points .line {
   stroke: #377eb8 !important; }
+.candidate_1.label {
+  fill: #377eb8 !important; }
 
 .candidate_2.line {
   stroke: #4daf4a !important; }
@@ -94,6 +114,8 @@ header {
   fill: #4daf4a !important; }
 .candidate_2.points .line {
   stroke: #4daf4a !important; }
+.candidate_2.label {
+  fill: #4daf4a !important; }
 
 .candidate_3.line {
   stroke: #984ea3 !important; }
@@ -103,6 +125,8 @@ header {
   fill: #984ea3 !important; }
 .candidate_3.points .line {
   stroke: #984ea3 !important; }
+.candidate_3.label {
+  fill: #984ea3 !important; }
 
 .candidate_4.line {
   stroke: #ff7f00 !important; }
@@ -112,6 +136,8 @@ header {
   fill: #ff7f00 !important; }
 .candidate_4.points .line {
   stroke: #ff7f00 !important; }
+.candidate_4.label {
+  fill: #ff7f00 !important; }
 
 .candidate_5.line {
   stroke: #ffff33 !important; }
@@ -121,6 +147,8 @@ header {
   fill: #ffff33 !important; }
 .candidate_5.points .line {
   stroke: #ffff33 !important; }
+.candidate_5.label {
+  fill: #ffff33 !important; }
 
 body {
   padding-top: 3em;
