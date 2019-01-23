@@ -27,6 +27,8 @@ header {
     position: absolute;
     left: 0;
     top: 0; }
+  .poll_chart rect.mouse-trap {
+    fill: white; }
   .poll_chart svg {
     shape-rendering: crispEdges;
     overflow: visible; }
