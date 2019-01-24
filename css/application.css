@@ -44,15 +44,10 @@ header {
       opacity: 1; }
     .poll_chart svg .axis--x line {
       display: none; }
-    .poll_chart svg line.year-line {
-      stroke: black; }
-    .poll_chart svg line.top-line {
-      stroke: black;
-      stroke-dasharray: 4 4; }
     .poll_chart svg .axis--y path.domain {
+      display: none;
       stroke: black;
-      opacity: 1;
-      display: none; }
+      opacity: 1; }
     .poll_chart svg .axis--y.axis--y--ticks .tick line {
       stroke: #ddd;
       stroke-width: 1; }
@@ -69,11 +64,6 @@ header {
       .poll_chart svg .chart-pane .line.boundary {
         stroke-opacity: 0.3;
         stroke-width: 1; }
-    .poll_chart svg text.result {
-      text-anchor: middle;
-      font-size: 2em; }
-    .poll_chart svg text.moving-date {
-      text-anchor: end; }
     .poll_chart svg .chart-pane .area {
       fill-opacity: 0.2;
       fill: white;
@@ -87,71 +77,72 @@ header {
       stroke: none;
       fill-opacity: 0.7;
       shape-rendering: geometricPrecision; }
+    .poll_chart svg line.year-line {
+      stroke: black; }
+    .poll_chart svg line.top-line {
+      stroke: black;
+      stroke-dasharray: 4 4; }
+    .poll_chart svg text.result {
+      text-anchor: middle;
+      font-size: 1.3em;
+      font-weight: 600; }
+    .poll_chart svg text.moving-date {
+      text-anchor: start; }
+    .poll_chart svg rect.distribution {
+      fill-opacity: 0.2; }
 
-.Tymoshenko.line {
+.Tymoshenko.stroke-color {
   stroke: #e41a1c !important; }
-.Tymoshenko.area {
+.Tymoshenko.fill-color {
   fill: #e41a1c !important; }
-.Tymoshenko.points circle {
-  fill: #e41a1c !important; }
-.Tymoshenko.points .line {
+.Tymoshenko .stroke-color {
   stroke: #e41a1c !important; }
-.Tymoshenko.label {
+.Tymoshenko .fill-color {
   fill: #e41a1c !important; }
 
-.Poroshenko.line {
+.Poroshenko.stroke-color {
   stroke: #377eb8 !important; }
-.Poroshenko.area {
+.Poroshenko.fill-color {
   fill: #377eb8 !important; }
-.Poroshenko.points circle {
-  fill: #377eb8 !important; }
-.Poroshenko.points .line {
+.Poroshenko .stroke-color {
   stroke: #377eb8 !important; }
-.Poroshenko.label {
+.Poroshenko .fill-color {
   fill: #377eb8 !important; }
 
-.Zelensky.line {
+.Zelensky.stroke-color {
   stroke: #4daf4a !important; }
-.Zelensky.area {
+.Zelensky.fill-color {
   fill: #4daf4a !important; }
-.Zelensky.points circle {
-  fill: #4daf4a !important; }
-.Zelensky.points .line {
+.Zelensky .stroke-color {
   stroke: #4daf4a !important; }
-.Zelensky.label {
+.Zelensky .fill-color {
   fill: #4daf4a !important; }
 
-.Grytsenko.line {
+.Grytsenko.stroke-color {
   stroke: #984ea3 !important; }
-.Grytsenko.area {
+.Grytsenko.fill-color {
   fill: #984ea3 !important; }
-.Grytsenko.points circle {
-  fill: #984ea3 !important; }
-.Grytsenko.points .line {
+.Grytsenko .stroke-color {
   stroke: #984ea3 !important; }
-.Grytsenko.label {
+.Grytsenko .fill-color {
   fill: #984ea3 !important; }
 
-.Boyko.line {
+.Boyko.stroke-color {
   stroke: #ff7f00 !important; }
-.Boyko.area {
+.Boyko.fill-color {
   fill: #ff7f00 !important; }
-.Boyko.points circle {
-  fill: #ff7f00 !important; }
-.Boyko.points .line {
+.Boyko .stroke-color {
   stroke: #ff7f00 !important; }
-.Boyko.label {
+.Boyko .fill-color {
   fill: #ff7f00 !important; }
 
-.Lyashko.line {
+.Lyashko.stroke-color {
   stroke: #ffff33 !important; }
-.Lyashko.area {
+.Lyashko.fill-color {
   fill: #ffff33 !important; }
-.Lyashko.points circle {
-  fill: #ffff33 !important; }
-.Lyashko.points .line {
+.Lyashko .stroke-color {
   stroke: #ffff33 !important; }
-.Lyashko.label {
+.Lyashko .fill-color {
   fill: #ffff33 !important; }
 
 body {

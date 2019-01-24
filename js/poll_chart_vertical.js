@@ -8,17 +8,20 @@ function poll_chart_vertical() {
         , x_domain
         , y_domain
 
-        , percentFormat = (function() {
-            var base = d3.format(".1%");
-            return function(val){ return base(val/100)};
-        })()
+        // , percentFormat = (function() {
+        //     var base = d3.format(".1%");
+        //     return function(val){ return base(val/100)};
+        // })()
+
+
+        , percentFormat = d3.format(".1f")
 
         , yTickValues
         , yTicks
         , xTickValues
         , x
 
-        , day_format = d3.timeFormat("%d %b %Y")
+        , day_format = d3.timeFormat("%d.%m.%Y")
 
         , formatMonth = d3.timeFormat("%B")
         , formatYear = d3.timeFormat("%Y")
@@ -64,7 +67,7 @@ function poll_chart_vertical() {
                 , width = w - margin.left - margin.right
                 , height = h - margin.top - margin.bottom
                 , g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-                , top_g = svg.append("g").attr("transform", "translate(" + margin.left + "," + 0 + ")");
+                // , top_g = svg.append("g").attr("transform", "translate(" + margin.left + "," + 0 + ")");
             context.translate(margin.left, margin.top);
 
 
@@ -166,7 +169,7 @@ function poll_chart_vertical() {
 
             g.append("g")
                 .attr("class", "axis axis--y axis--y--labels")
-                .call(yAxis)
+                .call(yAxis);
 
 
 
@@ -183,13 +186,15 @@ function poll_chart_vertical() {
                 .attr("class", "chart-pane points-pane");
 
             areaLines.forEach(function(areaLineObj, i){
-                // drawAreaCanvas(areaLineObj, colors[i]);
+                // drawAreaCanvas(areaLineObj, colors[i]);t
                 drawAreaLinesSvg(areaLineObj, area_g);
             });
             
             pointss.forEach(function(pointsobj){
                 drawPoints(pointsobj);
             });
+
+            drawDistributionLines(areaLines.map(al => ({"class": al.class, "data": lastElement(al.data)})), g);
 
             var moving_g = g
                 .append("g")
@@ -200,7 +205,7 @@ function poll_chart_vertical() {
                 .data(areaLines)
                 .enter()
                 .append("text")
-                .attr("class", (line, i) => "result label " + line.class)
+                .attr("class", (line, i) => "result label fill-color " + line.class)
                 .attr("x", line => x(lastElement(line.data).v))
                 .attr("y", 0)
                 .attr("dy", "-0.5em")
@@ -219,11 +224,18 @@ function poll_chart_vertical() {
             var top_date_label = moving_g
                 .append("text")
                 .attr("class", "moving-date")
-                .attr("x", 0)
-                .attr("dx", "-1em")
+                .attr("x", width)
+                .attr("dx", "1em")
                 .attr("y", 0)
                 .attr("dy", "-0.5em")
                 .text(day_format(y.invert(0)));
+
+
+            g.on("mousemove", function(){
+                var mouse = d3.mouse(this);
+                moveTopLine(mouse);
+
+            });
 
 
             function moveTopLine(mouse) {
@@ -259,16 +271,11 @@ function poll_chart_vertical() {
                 return line_data[min_dist_i];
             }
 
-            g.on("mousemove", function(){
-                var mouse = d3.mouse(this);
-                moveTopLine(mouse);
-
-            });
             
             function drawLineSvg(areaLineObj, pane) {
                 pane
                     .append("path")
-                    .attr("class", "line " + areaLineObj["class"])
+                    .attr("class", "line stroke-color " + areaLineObj["class"])
                     .attr("d", line_gen(areaLineObj.data));
 
                 // pane
@@ -281,7 +288,7 @@ function poll_chart_vertical() {
             function drawAreaSvg(areaLineObj, pane) {
                 pane
                     .append("path")
-                    .attr("class", "area " + areaLineObj["class"])
+                    .attr("class", "area fill-color " + areaLineObj["class"])
                     .attr("d", area_gen(areaLineObj.data));
             }
 
@@ -305,16 +312,34 @@ function poll_chart_vertical() {
                 var ent = points_g
                     .append("g")
                     .attr("class", "points " + pointsobj["class"])
-                    .selectAll(".cross")
+                    .selectAll("circle")
                     .data(pointsobj.data)
                     .enter();
-
+                    // .selectAll(".cross")
+                    //
 
 
                 ent.append("circle")
                     .attr("r", 2)
                     .attr("cx", d => x(d.v))
                     .attr("cy", d => y(d.date))
+                    .attr("class", "fill-color")
+            }
+
+
+            function drawDistributionLines(data, pane) {
+                pane
+                    .append("g")
+                    .attr("class", "ditributions_g")
+                    .attr("transform", "translate(0, -35)")
+                    .selectAll("rect.distribution")
+                    .data(data)
+                    .enter()
+                    .append("rect").attr("class", d => "distribution fill-color " + d.class)
+                    .attr("x", d => x(d.data.v0))
+                    .attr("width", d => x(d.data.v1) - x(d.data.v0))
+                    .attr("y", (d, i) => -15 - i * ( 8 + 3) )
+                    .attr("height", 8)
             }
 
 

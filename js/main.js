@@ -1,9 +1,9 @@
 (function() {
     // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko","Lyashko"];
     // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko"];
-    // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky"];
+    var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky"];
     // var candidates = ["Tymoshenko","Poroshenko"];
-    var candidates = ["Tymoshenko","Poroshenko","Zelensky"];
+    // var candidates = ["Tymoshenko","Poroshenko","Zelensky"];
 
     d3.queue()
         .defer(d3.csv, "data/chart_data_lines.csv")
