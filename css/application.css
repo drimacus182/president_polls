@@ -88,70 +88,70 @@ header {
       fill-opacity: 0.7;
       shape-rendering: geometricPrecision; }
 
-.candidate_0.line {
+.Tymoshenko.line {
   stroke: #e41a1c !important; }
-.candidate_0.area {
+.Tymoshenko.area {
   fill: #e41a1c !important; }
-.candidate_0.points circle {
+.Tymoshenko.points circle {
   fill: #e41a1c !important; }
-.candidate_0.points .line {
+.Tymoshenko.points .line {
   stroke: #e41a1c !important; }
-.candidate_0.label {
+.Tymoshenko.label {
   fill: #e41a1c !important; }
 
-.candidate_1.line {
+.Poroshenko.line {
   stroke: #377eb8 !important; }
-.candidate_1.area {
+.Poroshenko.area {
   fill: #377eb8 !important; }
-.candidate_1.points circle {
+.Poroshenko.points circle {
   fill: #377eb8 !important; }
-.candidate_1.points .line {
+.Poroshenko.points .line {
   stroke: #377eb8 !important; }
-.candidate_1.label {
+.Poroshenko.label {
   fill: #377eb8 !important; }
 
-.candidate_2.line {
+.Zelensky.line {
   stroke: #4daf4a !important; }
-.candidate_2.area {
+.Zelensky.area {
   fill: #4daf4a !important; }
-.candidate_2.points circle {
+.Zelensky.points circle {
   fill: #4daf4a !important; }
-.candidate_2.points .line {
+.Zelensky.points .line {
   stroke: #4daf4a !important; }
-.candidate_2.label {
+.Zelensky.label {
   fill: #4daf4a !important; }
 
-.candidate_3.line {
+.Grytsenko.line {
   stroke: #984ea3 !important; }
-.candidate_3.area {
+.Grytsenko.area {
   fill: #984ea3 !important; }
-.candidate_3.points circle {
+.Grytsenko.points circle {
   fill: #984ea3 !important; }
-.candidate_3.points .line {
+.Grytsenko.points .line {
   stroke: #984ea3 !important; }
-.candidate_3.label {
+.Grytsenko.label {
   fill: #984ea3 !important; }
 
-.candidate_4.line {
+.Boyko.line {
   stroke: #ff7f00 !important; }
-.candidate_4.area {
+.Boyko.area {
   fill: #ff7f00 !important; }
-.candidate_4.points circle {
+.Boyko.points circle {
   fill: #ff7f00 !important; }
-.candidate_4.points .line {
+.Boyko.points .line {
   stroke: #ff7f00 !important; }
-.candidate_4.label {
+.Boyko.label {
   fill: #ff7f00 !important; }
 
-.candidate_5.line {
+.Lyashko.line {
   stroke: #ffff33 !important; }
-.candidate_5.area {
+.Lyashko.area {
   fill: #ffff33 !important; }
-.candidate_5.points circle {
+.Lyashko.points circle {
   fill: #ffff33 !important; }
-.candidate_5.points .line {
+.Lyashko.points .line {
   stroke: #ffff33 !important; }
-.candidate_5.label {
+.Lyashko.label {
   fill: #ffff33 !important; }
 
 body {

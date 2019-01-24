@@ -1,6 +1,7 @@
 (function() {
     // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko","Lyashko"];
     // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko"];
+    // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky"];
     // var candidates = ["Tymoshenko","Poroshenko"];
     var candidates = ["Tymoshenko","Poroshenko","Zelensky"];
 
@@ -49,10 +50,13 @@
             });
 
 
-            var lines_data = d3.nest()
+            var data_lines_map = d3.nest()
                 .key(d => d.candidate)
-                .entries(raw_data_lines)
-                .filter(obj => candidates.includes(obj.key));
+                .map(raw_data_lines);
+
+            var lines_data = candidates.map(function(candidate) {
+               return {key: candidate, values: data_lines_map.get(candidate)};
+            });
 
             // lines_data.forEach(line => line.values = line.values.filter((v, i) => i % 150 == 0));
 

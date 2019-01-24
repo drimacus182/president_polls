@@ -1,8 +1,21 @@
 $color_0: red;
 $color_1: blue;
 
-@mixin candidate_color($number, $color) {
-  .candidate_#{$number} {
+//@mixin candidate_color($number, $color) {
+//  .candidate_#{$number} {
+//    &.line{stroke: $color !important;}
+//    &.area { fill: $color !important;}
+//    &.points {
+//      circle { fill: $color !important;}
+//      .line {stroke: $color !important;}
+//    }
+//    &.label {fill: $color !important;}
+//  }
+//}
+
+
+@mixin candidate_name_color($cand_name, $color) {
+  .#{$cand_name} {
     &.line{stroke: $color !important;}
     &.area { fill: $color !important;}
     &.points {
@@ -20,14 +33,23 @@ $color_1: blue;
 //@include candidate_color(4, #2900ff);
 //@include candidate_color(5, #e03fe0);
 
+//
+//
+//@include candidate_color(0, #e41a1c);
+//@include candidate_color(1, #377eb8);
+//@include candidate_color(2, #4daf4a);
+//@include candidate_color(3, #984ea3);
+//@include candidate_color(4, #ff7f00);
+//@include candidate_color(5, #ffff33);
 
 
-@include candidate_color(0, #e41a1c);
-@include candidate_color(1, #377eb8);
-@include candidate_color(2, #4daf4a);
-@include candidate_color(3, #984ea3);
-@include candidate_color(4, #ff7f00);
-@include candidate_color(5, #ffff33);
+@include candidate_name_color("Tymoshenko", #e41a1c);
+@include candidate_name_color("Poroshenko", #377eb8);
+@include candidate_name_color("Zelensky", #4daf4a);
+@include candidate_name_color("Grytsenko", #984ea3);
+@include candidate_name_color("Boyko", #ff7f00);
+@include candidate_name_color("Lyashko", #ffff33);
+
 
 
 //"#e41a1c",

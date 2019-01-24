@@ -22,6 +22,10 @@ function poll_chart_vertical() {
 
         , formatMonth = d3.timeFormat("%B")
         , formatYear = d3.timeFormat("%Y")
+        , formatMonthYear = d3.timeFormat("%B %Y")
+        , multiFormat = function(date) {
+            return (d3.timeYear(date) < date ? formatMonth : formatMonthYear)(date);
+        }
 
         , colors = [
             "#e41a1c",
@@ -118,12 +122,11 @@ function poll_chart_vertical() {
                 .tickSizeOuter(0)
                 .tickSizeInner(0)
                 .tickPadding(5)
-                // .tickFormat(formatMonth);
                 .tickFormat(multiFormat);
 
             if (yTicks) yAxis.ticks(yTicks);
             if (yTickValues) yAxis_ticks
-                .tickValues(yTickValues.map(poll => poll.date))
+                .tickValues(yTickValues.map(poll => poll.date));
 
 
             g.append("rect")
@@ -132,7 +135,6 @@ function poll_chart_vertical() {
                 .attr("y", 0)
                 .attr("width", width)
                 .attr("height", height);
-
 
             g.append("g")
                 .attr("class", "axis axis--x")
@@ -189,18 +191,24 @@ function poll_chart_vertical() {
                 drawPoints(pointsobj);
             });
 
-            var top_labels = g
+            var moving_g = g
+                .append("g")
+                .attr("class", "moving-g");
+
+            var top_labels = moving_g
                 .selectAll("text.result")
                 .data(areaLines)
                 .enter()
                 .append("text")
-                .attr("class", (line, i) => "result label candidate_" + i)
+                .attr("class", (line, i) => "result label " + line.class)
                 .attr("x", line => x(lastElement(line.data).v))
                 .attr("y", 0)
                 .attr("dy", "-0.5em")
                 .text(line => percentFormat(lastElement(line.data).v));
 
-            var top_line = g
+            fix_overlaps(top_labels, 15);
+
+            var top_line = moving_g
                 .append("line")
                 .attr("class", "top-line")
                 .attr("x1", -50)
@@ -208,7 +216,7 @@ function poll_chart_vertical() {
                 .attr("y1", 0)
                 .attr("y2", 0);
 
-            var top_date_label = g
+            var top_date_label = moving_g
                 .append("text")
                 .attr("class", "moving-date")
                 .attr("x", 0)
@@ -219,24 +227,22 @@ function poll_chart_vertical() {
 
 
             function moveTopLine(mouse) {
-                mouse[1] = Math.max(0, mouse[1])
+                var mouse_y = Math.max(0, mouse[1]);
 
-                var date = y.invert(mouse[1]);
+                var date = y.invert(mouse_y);
 
-                // console.log(date);
-                //
+                moving_g
+                    .attr("transform", "translate(0, " + mouse_y + ")");
+
                 top_labels
-                    .attr("y", mouse[1])
+                    // .attr("y", mouse_y)
                     .attr("x", line => x(findClosestDataForDate(line.data, date).v))
                     .text(line => percentFormat((findClosestDataForDate(line.data, date).v)));
 
-                top_line
-                    .attr("y1", mouse[1])
-                    .attr("y2", mouse[1]);
+                fix_overlaps(top_labels, 15);
 
                 top_date_label
-                    .attr("y", mouse[1])
-                    .text(day_format(y.invert(mouse[1])));
+                    .text(day_format(y.invert(mouse_y)));
 
             }
 
@@ -316,13 +322,52 @@ function poll_chart_vertical() {
                 return arr[arr.length - 1];
             }
 
+            function fix_overlaps(objects, padding) {
+                var extra_padding = padding * 0.2;
+
+                objects = objects.nodes().map(node => ({node: node, bbox: node.getBBox()}))
+                    .sort((o1, o2) => o1.bbox.x - o2.bbox.x);
+
+                var change_made = true;
+                var iterations = 0;
+
+                while (change_made && iterations < 10) {
+                    objects.sort((o1, o2) => o1.bbox.x - o2.bbox.x);
+
+                    change_made = false;
+
+                    for (var i = 0; i < objects.length - 1; i++) {
+                        var o1 = objects[i], o2 = objects[i + 1];
+
+                        if (!overlaps(o1.bbox, o2.bbox, padding)) continue;
+
+                        var node1_ = d3.select(o1.node);
+                        var node2_ = d3.select(o2.node);
+
+                        var overlap_distance = (o1.bbox.x + o1.bbox.width + padding + extra_padding) - o2.bbox.x;
+
+                        node1_.attr("x", +node1_.attr("x") - overlap_distance / 2);
+                        node2_.attr("x", +node2_.attr("x") + overlap_distance / 2);
+
+                        o1.bbox = o1.node.getBBox();
+                        o2.bbox = o2.node.getBBox();
+
+                        change_made = true;
+                    }
+                    iterations++
+                }
+                console.log("Iterations "+ iterations);
+
+                function overlaps(bbox1, bbox2, padding) {
+                    return (bbox2.x <= bbox1.x + bbox1.width + padding)
+                }
+            }
+
         });
     }
 
 
-    function multiFormat(date) {
-        return (d3.timeYear(date) < date ? formatMonth : formatYear)(date);
-    }
+
 
     my.addLine = function(value) {
         if (!arguments.length) return;
