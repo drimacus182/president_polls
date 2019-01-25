@@ -97,6 +97,8 @@ header {
       text-anchor: start; }
     .poll_chart svg rect.distribution {
       fill-opacity: 0.2; }
+    .poll_chart svg text.candidate-name {
+      font-size: 1em; }
 
 .Tymoshenko.stroke-color {
   stroke: #e41a1c !important; }

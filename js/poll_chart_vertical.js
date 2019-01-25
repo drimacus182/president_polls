@@ -194,7 +194,7 @@ function poll_chart_vertical() {
                 drawPoints(pointsobj);
             });
 
-            drawDistributionLines(areaLines.map(al => ({"class": al.class, "data": lastElement(al.data)})), g);
+            drawDistributionLines(areaLines.map(al => ({"class": al.class, "data": lastElement(al.data), candidate: al.candidate})), g);
 
             var moving_g = g
                 .append("g")
@@ -355,18 +355,35 @@ function poll_chart_vertical() {
 
 
             function drawDistributionLines(data, pane) {
-                pane
+                var dist_g = pane
                     .append("g")
                     .attr("class", "ditributions_g")
-                    .attr("transform", "translate(0, -35)")
-                    .selectAll("rect.distribution")
+                    .attr("transform", "translate(0, -40)")
+                    .selectAll("g.distribution")
                     .data(data)
                     .enter()
+                    .append("g")
+                    .attr("class", "distribution");
+
+                var dist_rect = dist_g
                     .append("rect").attr("class", d => "distribution fill-color " + d.class)
                     .attr("x", d => x(d.data.v0))
                     .attr("width", d => x(d.data.v1) - x(d.data.v0))
-                    .attr("y", (d, i) => -15 - i * ( 8 + 3) )
                     .attr("height", 8)
+                    .sort((d1, d2) => (x(d2.data.v1) - x(d2.data.v0)) - (x(d1.data.v1) - x(d1.data.v0)))
+                    .attr("y", (d, i) => - i * ( 8 + 3) );
+
+                fix_overlaps_y(dist_rect, 11);
+
+                dist_rect.each(function(d){d.__y__ = +d3.select(this).attr("y")});
+
+                dist_g
+                    .append("text")
+                    .attr("class", "candidate-name")
+                    .attr("x", d => x(d.data.v0))
+                    .attr("y", d => d.__y__)
+                    .attr("dy", "0.5em")
+                    .text(d => d.candidate)
             }
 
 
@@ -413,6 +430,39 @@ function poll_chart_vertical() {
                 function overlaps(bbox1, bbox2, padding) {
                     return (bbox2.x <= bbox1.x + bbox1.width + padding)
                 }
+            }
+
+
+            function fix_overlaps_y(elements, height) {
+                elements = elements.nodes().map(node => ({node: node, bbox: node.getBBox()}));
+
+                var fixed = [elements[0]];
+
+                for (var i = 1; i < elements.length; i++) {
+                    var el = elements[i];
+
+                    while (true) {
+                        el.bbox.y += height;
+                        if (el.bbox.y > 0 || fixed.some(_el_ => overlaps(el.bbox, _el_.bbox))) break;
+                    }
+
+                    el.bbox.y -= height;
+                    fixed.push(el);
+                }
+
+                elements.forEach(function(el){
+                    var d3_el = d3.select(el.node);
+                    var el_y = +d3_el.attr("y");
+                    var old_bbox_y = el.node.getBBox().y;
+
+                    var correction = el.bbox.y - old_bbox_y;
+
+                    d3_el.attr("y", el_y + correction);
+                });
+            }
+
+            function overlaps(bbox1, bbox2) {
+                return (bbox1.y == bbox2.y) && !(bbox2.x + bbox2.width <= bbox1.x  ||  bbox2.x >= bbox1.x + bbox1.width)
             }
 
         });

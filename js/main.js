@@ -1,9 +1,19 @@
 (function() {
     // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko","Lyashko"];
     // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko"];
-    var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky"];
+    // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky"];
     // var candidates = ["Tymoshenko","Poroshenko"];
-    // var candidates = ["Tymoshenko","Poroshenko","Zelensky"];
+    var candidates = ["Tymoshenko","Poroshenko","Zelensky"];
+
+
+    var display_names = {
+        "Tymoshenko": "Тимошенко",
+        "Poroshenko": "Порошенко",
+        "Grytsenko": "Гриценко",
+        "Zelensky": "Зеленський",
+        "Boyko": "Бойко",
+        "Lyashko": "Ляшко"
+    };
 
     d3.queue()
         .defer(d3.csv, "data/chart_data_lines.csv")
@@ -70,12 +80,15 @@
                 // if (i < 2) {
                 main_chart_vertical.addAreaLine({
                     data: line.values.map(d => ({date: d.date, v: d.median, v0: d.lower, v1: d.upper})),
-                    "class": "candidate_" + i + " " + line.key
+                    "class": "candidate_" + i + " " + line.key,
+                    candidate: display_names[line.key]
                 });
                 // } else {
                 main_chart_vertical.addLine({
                     data: line.values.map(d => ({date: d.date, v: d.median, v0: d.lower, v1: d.upper})),
-                    "class": "candidate_" + i + " " + line.key
+                    "class": "candidate_" + i + " " + line.key,
+                    candidate: display_names[line.key]
+
                 });
                 // }
             });
