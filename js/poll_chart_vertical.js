@@ -200,10 +200,21 @@ function poll_chart_vertical() {
                 .append("g")
                 .attr("class", "moving-g");
 
-            var top_labels = moving_g
-                .selectAll("text.result")
+            var top_labels_g = moving_g
+                .selectAll("g.result_g")
                 .data(areaLines)
                 .enter()
+                .append("g").attr("class", "result_g");
+
+            var top_labels_bg = top_labels_g
+                .append("text")
+                .attr("class", (line, i) => "result label background stroke-pseudo-transparent-color " + line.class)
+                .attr("x", line => x(lastElement(line.data).v))
+                .attr("y", 0)
+                .attr("dy", "-0.5em");
+
+
+            var top_labels = top_labels_g
                 .append("text")
                 .attr("class", (line, i) => "result label fill-color " + line.class)
                 .attr("x", line => x(lastElement(line.data).v))
@@ -212,6 +223,8 @@ function poll_chart_vertical() {
                 .text(line => percentFormat(lastElement(line.data).v));
 
             fix_overlaps(top_labels, 15);
+
+            drawBackgroundForLabels();
 
             var top_line = moving_g
                 .append("line")
@@ -234,8 +247,20 @@ function poll_chart_vertical() {
             g.on("mousemove", function(){
                 var mouse = d3.mouse(this);
                 moveTopLine(mouse);
-
             });
+
+
+            function drawBackgroundForLabels() {
+                top_labels
+                    .each(function(d){
+                        d.__x__ = +d3.select(this).attr("x");
+                        d.__text__ = d3.select(this).text();
+                    });
+
+                top_labels_bg
+                    .attr("x", d => d.__x__)
+                    .text(d => d.__text__);
+            }
 
 
             function moveTopLine(mouse) {
@@ -252,6 +277,8 @@ function poll_chart_vertical() {
                     .text(line => percentFormat((findClosestDataForDate(line.data, date).v)));
 
                 fix_overlaps(top_labels, 15);
+
+                drawBackgroundForLabels();
 
                 top_date_label
                     .text(day_format(y.invert(mouse_y)));

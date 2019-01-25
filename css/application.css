@@ -86,6 +86,12 @@ header {
       text-anchor: middle;
       font-size: 1.3em;
       font-weight: 600; }
+      .poll_chart svg text.result.background {
+        text-anchor: middle;
+        font-size: 1.3em;
+        fill: none !important;
+        stroke-width: 0.5rem;
+        stroke-opacity: 1; }
     .poll_chart svg text.moving-date {
       text-anchor: start; }
     .poll_chart svg rect.distribution {
@@ -95,6 +101,8 @@ header {
   stroke: #e41a1c !important; }
 .Tymoshenko.fill-color {
   fill: #e41a1c !important; }
+.Tymoshenko.stroke-pseudo-transparent-color {
+  stroke: #fad1d2 !important; }
 .Tymoshenko .stroke-color {
   stroke: #e41a1c !important; }
 .Tymoshenko .fill-color {
@@ -104,6 +112,8 @@ header {
   stroke: #377eb8 !important; }
 .Poroshenko.fill-color {
   fill: #377eb8 !important; }
+.Poroshenko.stroke-pseudo-transparent-color {
+  stroke: #d7e5f1 !important; }
 .Poroshenko .stroke-color {
   stroke: #377eb8 !important; }
 .Poroshenko .fill-color {
@@ -113,6 +123,8 @@ header {
   stroke: #4daf4a !important; }
 .Zelensky.fill-color {
   fill: #4daf4a !important; }
+.Zelensky.stroke-pseudo-transparent-color {
+  stroke: #dbefdb !important; }
 .Zelensky .stroke-color {
   stroke: #4daf4a !important; }
 .Zelensky .fill-color {
@@ -122,6 +134,8 @@ header {
   stroke: #984ea3 !important; }
 .Grytsenko.fill-color {
   fill: #984ea3 !important; }
+.Grytsenko.stroke-pseudo-transparent-color {
+  stroke: #eadced !important; }
 .Grytsenko .stroke-color {
   stroke: #984ea3 !important; }
 .Grytsenko .fill-color {
@@ -131,6 +145,8 @@ header {
   stroke: #ff7f00 !important; }
 .Boyko.fill-color {
   fill: #ff7f00 !important; }
+.Boyko.stroke-pseudo-transparent-color {
+  stroke: #ffe5cc !important; }
 .Boyko .stroke-color {
   stroke: #ff7f00 !important; }
 .Boyko .fill-color {
@@ -140,6 +156,8 @@ header {
   stroke: #ffff33 !important; }
 .Lyashko.fill-color {
   fill: #ffff33 !important; }
+.Lyashko.stroke-pseudo-transparent-color {
+  stroke: #ffffd6 !important; }
 .Lyashko .stroke-color {
   stroke: #ffff33 !important; }
 .Lyashko .fill-color {

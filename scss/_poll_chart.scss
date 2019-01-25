@@ -1,6 +1,8 @@
 .poll_chart {
   position: relative;
 
+  $area-opacity: 0.2;
+
   svg {width: 100%; height: 100%;}
 
   svg {
@@ -73,7 +75,7 @@
     }
 
     .chart-pane .area {
-      fill-opacity: 0.2;
+      fill-opacity: $area-opacity;
       fill: white;
       shape-rendering: geometricPrecision;
     }
@@ -100,6 +102,14 @@
       text-anchor: middle;
       font-size: 1.3em;
       font-weight: 600;
+
+      &.background {
+        text-anchor: middle;
+        font-size: 1.3em;
+        fill: none !important;
+        stroke-width: 0.5rem;
+        stroke-opacity: 1;
+      }
     }
 
     text.moving-date {
@@ -107,7 +117,7 @@
     }
 
     rect.distribution {
-      fill-opacity: 0.2;
+      fill-opacity: $area-opacity;
     }
   }
 
