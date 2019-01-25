@@ -91,7 +91,8 @@ header {
         font-size: 1.3em;
         fill: none !important;
         stroke-width: 0.5rem;
-        stroke-opacity: 1; }
+        stroke-opacity: 1;
+        stroke-linejoin: round; }
     .poll_chart svg text.moving-date {
       text-anchor: start; }
     .poll_chart svg rect.distribution {
