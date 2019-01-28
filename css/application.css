@@ -49,7 +49,7 @@ header {
       stroke: black;
       opacity: 1; }
     .poll_chart svg .axis--y.axis--y--ticks .tick line {
-      stroke: #ddd;
+      stroke: #eee;
       stroke-width: 1; }
     .poll_chart svg .axis--y.axis--y--ticks .tick text {
       display: none; }
@@ -72,10 +72,12 @@ header {
       fill-opacity: 0.8;
       fill: white;
       shape-rendering: geometricPrecision; }
-    .poll_chart svg .chart-pane .points circle {
+    .poll_chart svg .points-pane circle {
       fill: grey;
-      stroke: none;
       fill-opacity: 0.7;
+      shape-rendering: geometricPrecision; }
+    .poll_chart svg .points-popup-pane circle {
+      stroke: none;
       shape-rendering: geometricPrecision; }
     .poll_chart svg line.year-line {
       stroke: black; }
@@ -99,6 +101,8 @@ header {
       fill-opacity: 0.2; }
     .poll_chart svg text.candidate-name {
       font-size: 1em; }
+    .poll_chart svg .annotations-pane text {
+      font-size: 13px; }
 
 .Tymoshenko.stroke-color {
   stroke: #e41a1c !important; }

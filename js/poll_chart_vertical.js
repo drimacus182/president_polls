@@ -13,7 +13,6 @@ function poll_chart_vertical() {
         //     return function(val){ return base(val/100)};
         // })()
 
-
         , percentFormat = d3.format(".1f")
 
         , yTickValues
@@ -37,7 +36,13 @@ function poll_chart_vertical() {
             "#984ea3",
             "#ff7f00",
             "#ffff33"
-        ];
+        ]
+
+
+
+
+        , points_tree = rbush()
+        ;
 
     function my(selection) {
         selection.each(function(d) {
@@ -124,7 +129,7 @@ function poll_chart_vertical() {
             var yAxis = d3.axisLeft(y)
                 .tickSizeOuter(0)
                 .tickSizeInner(0)
-                .tickPadding(5)
+                .tickPadding(15)
                 .tickFormat(multiFormat);
 
             if (yTicks) yAxis.ticks(yTicks);
@@ -185,11 +190,17 @@ function poll_chart_vertical() {
                 .append("g")
                 .attr("class", "chart-pane points-pane");
 
+            var points_popup_g = g
+                .append("g")
+                .attr("class", "chart-pane points-popup-pane");
+
             areaLines.forEach(function(areaLineObj, i){
                 // drawAreaCanvas(areaLineObj, colors[i]);t
                 drawAreaLinesSvg(areaLineObj, area_g);
             });
-            
+
+            console.log(pointss);
+
             pointss.forEach(function(pointsobj){
                 drawPoints(pointsobj);
             });
@@ -249,6 +260,10 @@ function poll_chart_vertical() {
                 moveTopLine(mouse);
             });
 
+            var annotations_pane = g
+                .append("g")
+                .attr("class", "annotations-pane");
+
 
             function drawBackgroundForLabels() {
                 top_labels
@@ -267,6 +282,7 @@ function poll_chart_vertical() {
                 var mouse_y = Math.max(0, mouse[1]);
 
                 var date = y.invert(mouse_y);
+                var v = x.invert(mouse[0]);
 
                 moving_g
                     .attr("transform", "translate(0, " + mouse_y + ")");
@@ -283,6 +299,64 @@ function poll_chart_vertical() {
                 top_date_label
                     .text(day_format(y.invert(mouse_y)));
 
+                //popup polls annotations
+
+                var popup_points = findClosestPoints(date, v);
+
+                annotations_pane
+                    .selectAll("text.enter")
+                    .classed("enter", false)
+                    .classed("exit", true)
+                    .style("opacity", 1)
+                    .transition()
+                    .duration(500)
+                    .style("opacity", 0)
+                    .remove();
+
+                points_popup_g
+                    .selectAll("circle.enter")
+                    .classed("enter", false)
+                    .classed("exit", true)
+                    .style("opacity", 1)
+                    .transition()
+                    .duration(500)
+                    .style("opacity", 0)
+                    .remove();
+
+                var poll_house_label = annotations_pane
+                    .selectAll("text.poll_house.enter")
+                    .data(popup_points)
+                    .enter()
+                    .append("text")
+                    .attr("class", "poll_house enter")
+                    .attr("x", d => x(d.v))
+                    .attr("y", (d, i) => y(d.date) + i * 35)
+                    .attr("dy", "2.5em")
+                    .text(d => d.poll_house);
+
+                var percents = annotations_pane
+                    .selectAll("text.percent.enter")
+                    .data(popup_points)
+                    .enter()
+                    .append("text")
+                    .attr("class", d => "percent enter fill-color " + d.candidate)
+                    .attr("x", d => x(d.v))
+                    .attr("y", (d, i) => y(d.date) + i * 35 )
+                    .attr("dy", "1.5em")
+                    .text(d => percentFormat(d.v));
+
+                // fix_overlaps(poll_house_label, 2);
+                // dist_rect.each(function(d){d.__y__ = +d3.select(this).attr("y")});
+
+                points_popup_g
+                    .selectAll("circle.enter")
+                    .data(popup_points)
+                    .enter()
+                    .append("circle")
+                    .attr("class", d => "enter fill-color " + d.candidate)
+                    .attr("cx", d => x(d.v))
+                    .attr("cy", d => y(d.date))
+                    .attr("r", 4)
             }
 
             function findClosestDataForDate(line_data, date) {
@@ -297,6 +371,21 @@ function poll_chart_vertical() {
 
                 return line_data[min_dist_i];
             }
+
+            function findClosestPoints(date, v) {
+                var x_dst = 10;
+                var y_dst = 10;
+
+                return points_tree.search({minX: x(v) - x_dst, maxX: x(v) + x_dst, minY: y(date) - y_dst, maxY: y(date) + y_dst})
+                    .map(item => item.data);
+            }
+
+            // function add_n_days(date, n) {
+            //     date = new Date(date);
+            //     date.setDate(date.getDate() + n);
+            //     return date
+            // }
+            //
 
             
             function drawLineSvg(areaLineObj, pane) {
@@ -342,15 +431,25 @@ function poll_chart_vertical() {
                     .selectAll("circle")
                     .data(pointsobj.data)
                     .enter();
-                    // .selectAll(".cross")
-                    //
 
-
-                ent.append("circle")
+                var circles = ent
+                    .append("circle")
                     .attr("r", 2)
                     .attr("cx", d => x(d.v))
                     .attr("cy", d => y(d.date))
-                    .attr("class", "fill-color")
+                    .attr("class", "fill-color");
+
+
+                points_tree.load(pointsobj.data.map(function(p) {
+                        return {
+                            minX: x(p.v),
+                            maxX: x(p.v),
+                            minY: y(p.date),
+                            maxY: y(p.date),
+                            data: p
+                        }
+                    })
+                );
             }
 
 
@@ -358,7 +457,7 @@ function poll_chart_vertical() {
                 var dist_g = pane
                     .append("g")
                     .attr("class", "ditributions_g")
-                    .attr("transform", "translate(0, -40)")
+                    .attr("transform", "translate(0, " + (-40 - data.length * 11) + ")")
                     .selectAll("g.distribution")
                     .data(data)
                     .enter()
@@ -370,10 +469,11 @@ function poll_chart_vertical() {
                     .attr("x", d => x(d.data.v0))
                     .attr("width", d => x(d.data.v1) - x(d.data.v0))
                     .attr("height", 8)
-                    .sort((d1, d2) => (x(d2.data.v1) - x(d2.data.v0)) - (x(d1.data.v1) - x(d1.data.v0)))
-                    .attr("y", (d, i) => - i * ( 8 + 3) );
+                    // .sort((d1, d2) => (x(d2.data.v1) - x(d2.data.v0)) - (x(d1.data.v1) - x(d1.data.v0)))
+                    .sort((d1, d2) => x(d2.data.v) - x(d1.data.v))
+                    .attr("y", (d, i) => i * ( 8 + 3) );
 
-                fix_overlaps_y(dist_rect, 11);
+                // fix_overlaps_y(dist_rect, 11);
 
                 dist_rect.each(function(d){d.__y__ = +d3.select(this).attr("y")});
 
