@@ -569,20 +569,20 @@ function poll_chart_vertical() {
                 dist_rect.each(function(d){d.__y__ = +d3.select(this).attr("y")});
 
                 dist_g
-                    .append("text")
-                    .attr("class", "candidate-name")
-                    .attr("x", d => x(d.data.v0))
-                    .attr("y", d => d.__y__)
-                    .attr("dy", "0.9em")
-                    .text(d => (d.__checked__ ? "✓" : "")  + d.candidate);
-
-                dist_g
                     .append("line")
                     .attr("class", "median-line stroke-color")
                     .attr("x1", d => x(d.data.v))
                     .attr("x2", d => x(d.data.v))
                     .attr("y1", d => d.__y__)
                     .attr("y2", d => d.__y__ + rect_height)
+
+                dist_g
+                    .append("text")
+                    .attr("class", "candidate-name")
+                    .attr("x", d => x(d.data.v0))
+                    .attr("y", d => d.__y__)
+                    .attr("dy", "0.9em")
+                    .text(d => (d.__checked__ ? "✓" : "")  + d.candidate);
 
                 dist_g
                     .append("text")

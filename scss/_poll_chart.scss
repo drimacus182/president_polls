@@ -168,6 +168,14 @@
           display: block;
         }
       }
+
+      @media #{$brk-mobile} {
+        &:hover {
+          text.percent {
+            display: none !important;
+          }
+        }
+      }
     }
 
     .annotations-pane text {

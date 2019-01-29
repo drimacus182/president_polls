@@ -129,6 +129,9 @@ header {
       pointer-events: none; }
     .poll_chart svg g.distribution:hover text.percent {
       display: block; }
+    @media (max-width: 700px) {
+      .poll_chart svg g.distribution:hover text.percent {
+        display: none !important; } }
     .poll_chart svg .annotations-pane text {
       font-size: 13px; }
       .poll_chart svg .annotations-pane text.percent-background {
