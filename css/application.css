@@ -232,4 +232,10 @@ a.dotted {
     .share-btn:hover i {
       border-color: #424242; }
 
+.infobox {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  max-width: 150px; }
+
 /*# sourceMappingURL=application.css.map */
