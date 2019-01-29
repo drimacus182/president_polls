@@ -57,7 +57,10 @@
     }
 
     .axis--y.axis--y--labels .tick {
-      text { fill: #777;}
+      text {
+        fill: #777;
+        text-anchor: start;
+      }
     }
 
     .chart-pane .line {

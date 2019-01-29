@@ -14,6 +14,7 @@ header {
   top: 0;
   background-color: white;
   z-index: 1000;
+  width: 100vw;
   border-bottom: 1px solid #ccc; }
   header .main-logo {
     height: 2.5em; }
@@ -61,7 +62,8 @@ header {
     .poll_chart svg .axis--y.axis--y--ticks .tick text {
       display: none; }
     .poll_chart svg .axis--y.axis--y--labels .tick text {
-      fill: #777; }
+      fill: #777;
+      text-anchor: start; }
     .poll_chart svg .chart-pane .line {
       fill: none;
       stroke: black;
@@ -268,5 +270,17 @@ p {
     font-size: 2em; } }
 .logo {
   max-width: 100%; }
+
+.mobile {
+  display: none; }
+  @media (max-width: 700px) {
+    .mobile {
+      display: block; } }
+
+.desktop {
+  display: block; }
+  @media (max-width: 700px) {
+    .desktop {
+      display: none; } }
 
 /*# sourceMappingURL=application.css.map */

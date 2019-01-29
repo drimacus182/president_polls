@@ -68,7 +68,7 @@ function poll_chart_vertical() {
                 .append("svg")
                 .attr("class", "svg-pane");
 
-            var margin = {top: 200, right: 0, bottom: 15, left: 50}
+            var margin = {top: 200, right: 0, bottom: 15, left: 25}
                 , width = w - margin.left - margin.right
                 , height = h - margin.top - margin.bottom
                 , g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -175,7 +175,9 @@ function poll_chart_vertical() {
 
             g.append("g")
                 .attr("class", "axis axis--y axis--y--labels")
-                .call(yAxis);
+                .call(yAxis)
+                .selectAll("text")
+                .attr("dy", "-0.5em");
 
 
 

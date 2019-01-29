@@ -104,3 +104,21 @@ p {
 .logo {
   max-width: 100%;
 }
+
+$brk-mobile: '(max-width: 700px)';
+
+.mobile {
+  display: none;
+
+  @media #{$brk-mobile}  {
+    display: block;
+  }
+}
+
+.desktop {
+  display: block;
+
+  @media #{$brk-mobile}  {
+    display: none;
+  }
+}
