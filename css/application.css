@@ -14,9 +14,16 @@ header {
   top: 0;
   background-color: white;
   z-index: 1000;
-  border-bottom: 1px solid black; }
+  border-bottom: 1px solid #ccc; }
   header .main-logo {
     height: 2.5em; }
+  header .social-icons {
+    width: 3em; }
+    header .social-icons a {
+      font-size: 1.3em;
+      color: #aaa; }
+      header .social-icons a:hover {
+        color: orange; }
 
 .poll_chart {
   position: relative; }
@@ -206,17 +213,20 @@ body {
   flex-direction: column;
   justify-content: center; }
   .main-title h3 {
-    font-size: 3em;
-    font-weight: 600; }
+    font-size: 2.3em;
+    font-weight: 800; }
+
+h4 {
+  font-weight: 300; }
 
 a.dotted {
   border-bottom: 1px dotted; }
   a.dotted:hover {
     text-decoration: none; }
 
-.share-btn {
+.footer .share-btn {
   color: #bdbdbd; }
-  .share-btn i {
+  .footer .share-btn i {
     margin: 25px 25px 25px 25px;
     cursor: pointer;
     width: 1.85em;
@@ -227,15 +237,15 @@ a.dotted {
     vertical-align: middle;
     padding: 15px;
     font-size: 2.5em; }
-  .share-btn:hover {
+  .footer .share-btn:hover {
     color: #424242; }
-    .share-btn:hover i {
+    .footer .share-btn:hover i {
       border-color: #424242; }
 
 .infobox {
   position: absolute;
   top: 35px;
-  left: 0;
+  left: -25px;
   max-width: 150px; }
 
 /*# sourceMappingURL=application.css.map */
