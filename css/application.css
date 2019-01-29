@@ -209,12 +209,14 @@ body {
 
 .main-title {
   min-height: 10em;
+  margin-bottom: 2em;
   display: flex;
   flex-direction: column;
   justify-content: center; }
   .main-title h3 {
     font-size: 2.3em;
-    font-weight: 800; }
+    font-weight: 800;
+    text-align: center; }
 
 h4 {
   font-weight: 300; }
@@ -245,11 +247,26 @@ a.dotted {
 .infobox {
   position: absolute;
   top: 35px;
-  left: -25px;
+  left: 0px;
   max-width: 150px; }
 
 h3 {
   font-weight: 800;
-  font-size: 1.5em; }
+  font-size: 2em;
+  margin-top: 2em; }
+
+p {
+  font-size: 1.2em;
+  font-weight: 300; }
+
+@media (max-width: 767px) {
+  p {
+    font-size: 1.3em;
+    font-weight: 300; }
+
+  h3 {
+    font-size: 2em; } }
+.logo {
+  max-width: 100%; }
 
 /*# sourceMappingURL=application.css.map */
