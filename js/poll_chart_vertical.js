@@ -68,7 +68,7 @@ function poll_chart_vertical() {
                 .append("svg")
                 .attr("class", "svg-pane");
 
-            var margin = {top: 100, right: 0, bottom: 15, left: 50}
+            var margin = {top: 200, right: 0, bottom: 15, left: 50}
                 , width = w - margin.left - margin.right
                 , height = h - margin.top - margin.bottom
                 , g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -195,7 +195,6 @@ function poll_chart_vertical() {
                 .attr("class", "chart-pane points-popup-pane");
 
             areaLines.forEach(function(areaLineObj, i){
-                // drawAreaCanvas(areaLineObj, colors[i]);t
                 drawAreaLinesSvg(areaLineObj, area_g);
             });
 
@@ -205,7 +204,13 @@ function poll_chart_vertical() {
                 drawPoints(pointsobj);
             });
 
-            drawDistributionLines(areaLines.map(al => ({"class": al.class, "data": lastElement(al.data), candidate: al.candidate})), g);
+            drawDistributionLines(areaLines.map(al => ({
+                "class": al.class,
+                "data": lastElement(al.data),
+                candidate: al.candidate,
+                key: al.key,
+                __checked__: al.__checked__
+            })), g);
 
             var moving_g = g
                 .append("g")
@@ -215,7 +220,9 @@ function poll_chart_vertical() {
                 .selectAll("g.result_g")
                 .data(areaLines)
                 .enter()
-                .append("g").attr("class", "result_g");
+                .append("g")
+                .attr("class", "result_g")
+                .classed("hidden", d => !d.__checked__);
 
             var top_labels_bg = top_labels_g
                 .append("text")
@@ -330,7 +337,7 @@ function poll_chart_vertical() {
                     .append("text")
                     .attr("class", "poll_house enter")
                     .attr("x", d => x(d.v))
-                    .attr("y", (d, i) => y(d.date) + i * 35)
+                    .attr("y", (d, i) => y(d.date) + 10 + i * 35)
                     .attr("dy", "2.5em")
                     .text(d => d.poll_house);
 
@@ -341,7 +348,7 @@ function poll_chart_vertical() {
                     .append("text")
                     .attr("class", d => "percent enter fill-color " + d.candidate)
                     .attr("x", d => x(d.v))
-                    .attr("y", (d, i) => y(d.date) + i * 35 )
+                    .attr("y", (d, i) => y(d.date) + 10 + i * 35 )
                     .attr("dy", "1.5em")
                     .text(d => percentFormat(d.v));
 
@@ -379,35 +386,24 @@ function poll_chart_vertical() {
                 return points_tree.search({minX: x(v) - x_dst, maxX: x(v) + x_dst, minY: y(date) - y_dst, maxY: y(date) + y_dst})
                     .map(item => item.data);
             }
-
-            // function add_n_days(date, n) {
-            //     date = new Date(date);
-            //     date.setDate(date.getDate() + n);
-            //     return date
-            // }
-            //
-
             
             function drawLineSvg(areaLineObj, pane) {
                 pane
                     .append("path")
+                    .datum(areaLineObj)
                     .attr("class", "line stroke-color " + areaLineObj["class"])
-                    .attr("d", line_gen(areaLineObj.data));
-
-                // pane
-                //     .append("path")
-                //     .attr("class", "area center " + areaLineObj["class"])
-                //     .attr("d", area_center_gen(areaLineObj.data));
-
+                    .classed("hidden", d => !d.__checked__)
+                    .attr("d", d => line_gen(d.data));
             }
 
             function drawAreaSvg(areaLineObj, pane) {
                 pane
                     .append("path")
+                    .datum(areaLineObj)
                     .attr("class", "area fill-color " + areaLineObj["class"])
-                    .attr("d", area_gen(areaLineObj.data));
+                    .classed("hidden", d => !d.__checked__)
+                    .attr("d", d => area_gen(d.data));
             }
-
 
             function drawAreaCanvas(areaobj, color) {
                 context.beginPath();
@@ -427,9 +423,11 @@ function poll_chart_vertical() {
             function drawPoints(pointsobj) {
                 var ent = points_g
                     .append("g")
+                    .datum(pointsobj)
                     .attr("class", "points " + pointsobj["class"])
+                    .classed("hidden", d => !d.__checked__)
                     .selectAll("circle")
-                    .data(pointsobj.data)
+                    .data(d => d.data)
                     .enter();
 
                 var circles = ent
@@ -439,6 +437,7 @@ function poll_chart_vertical() {
                     .attr("cy", d => y(d.date))
                     .attr("class", "fill-color");
 
+                if (!pointsobj.__checked__) return;
 
                 points_tree.load(pointsobj.data.map(function(p) {
                         return {
@@ -454,10 +453,13 @@ function poll_chart_vertical() {
 
 
             function drawDistributionLines(data, pane) {
+                var rect_height = 16;
+                var vertical_padding = 3;
+
                 var dist_g = pane
                     .append("g")
-                    .attr("class", "ditributions_g")
-                    .attr("transform", "translate(0, " + (-40 - data.length * 11) + ")")
+                    .attr("class", "distributions_g")
+                    .attr("transform", "translate(0, " + (-40 - data.length * (rect_height + vertical_padding)) + ")")
                     .selectAll("g.distribution")
                     .data(data)
                     .enter()
@@ -465,13 +467,73 @@ function poll_chart_vertical() {
                     .attr("class", "distribution");
 
                 var dist_rect = dist_g
+                    .sort((d1, d2) => x(d2.data.v) - x(d1.data.v))
                     .append("rect").attr("class", d => "distribution fill-color " + d.class)
                     .attr("x", d => x(d.data.v0))
                     .attr("width", d => x(d.data.v1) - x(d.data.v0))
-                    .attr("height", 8)
+                    .attr("height", rect_height)
                     // .sort((d1, d2) => (x(d2.data.v1) - x(d2.data.v0)) - (x(d1.data.v1) - x(d1.data.v0)))
-                    .sort((d1, d2) => x(d2.data.v) - x(d1.data.v))
-                    .attr("y", (d, i) => i * ( 8 + 3) );
+                    .attr("y", (d, i) => i * ( rect_height + vertical_padding))
+                    .on("click", function(d){
+                        d.__checked__ = !d.__checked__;
+
+                        d3.select(this.parentNode)
+                            .select("text")
+                            .text((d.__checked__ ? "✓" : "")  + d.candidate);
+
+                        areaLines.filter(al => al.key === d.key)
+                            .forEach(al => al.__checked__ = d.__checked__);
+
+                        var sel_p = pointss.filter(pp => pp.key === d.key);
+                        sel_p.forEach(pp => pp.__checked__ = d.__checked__);
+
+                        top_labels_g
+                            .classed("hidden", dd => !dd.__checked__);
+
+                        area_g
+                            .selectAll(".area")
+                            .classed("hidden", dd => !dd.__checked__);
+
+                        area_g
+                            .selectAll(".line")
+                            .classed("hidden", dd => !dd.__checked__);
+
+                        points_g
+                            .selectAll(".points")
+                            .classed("hidden", dd => !dd.__checked__);
+
+                        if (d.__checked__) {
+                            sel_p.forEach(function(pp){
+                                points_tree.load(pp.data.map(function(p) {
+                                        return {
+                                            minX: x(p.v),
+                                            maxX: x(p.v),
+                                            minY: y(p.date),
+                                            maxY: y(p.date),
+                                            data: p
+                                        }
+                                    })
+                                );
+                            });
+                        } else {
+                            points_tree = rbush();
+
+                            pointss
+                                .filter(pp => pp.__checked__)
+                                .forEach(function(pp){
+                                    points_tree.load(pp.data.map(function(p) {
+                                            return {
+                                                minX: x(p.v),
+                                                maxX: x(p.v),
+                                                minY: y(p.date),
+                                                maxY: y(p.date),
+                                                data: p
+                                            }
+                                        })
+                                    );
+                                })
+                        }
+                    });
 
                 // fix_overlaps_y(dist_rect, 11);
 
@@ -482,8 +544,8 @@ function poll_chart_vertical() {
                     .attr("class", "candidate-name")
                     .attr("x", d => x(d.data.v0))
                     .attr("y", d => d.__y__)
-                    .attr("dy", "0.5em")
-                    .text(d => d.candidate)
+                    .attr("dy", "0.9em")
+                    .text(d => (d.__checked__ ? "✓" : "")  + d.candidate)
             }
 
 
@@ -494,7 +556,10 @@ function poll_chart_vertical() {
             function fix_overlaps(objects, padding) {
                 var extra_padding = padding * 0.2;
 
-                objects = objects.nodes().map(node => ({node: node, bbox: node.getBBox()}))
+                objects = objects
+                    .filter(d => d.__checked__)
+                    .nodes()
+                    .map(node => ({node: node, bbox: node.getBBox()}))
                     .sort((o1, o2) => o1.bbox.x - o2.bbox.x);
 
                 var change_made = true;
@@ -559,12 +624,11 @@ function poll_chart_vertical() {
 
                     d3_el.attr("y", el_y + correction);
                 });
-            }
 
-            function overlaps(bbox1, bbox2) {
-                return (bbox1.y == bbox2.y) && !(bbox2.x + bbox2.width <= bbox1.x  ||  bbox2.x >= bbox1.x + bbox1.width)
+                function overlaps(bbox1, bbox2) {
+                    return (bbox1.y == bbox2.y) && !(bbox2.x + bbox2.width <= bbox1.x  ||  bbox2.x >= bbox1.x + bbox1.width)
+                }
             }
-
         });
     }
 
@@ -606,12 +670,6 @@ function poll_chart_vertical() {
         y_domain = value;
         return my;
     };
-
-    // my.yFormat = function(value) {
-    //     if (!arguments.length) return yFormat;
-    //     yFormat = value;
-    //     return my;
-    // };
 
     my.yTickValues = function(value) {
         if (!arguments.length) return yTickValues;

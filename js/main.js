@@ -3,8 +3,12 @@
     // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko"];
     // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky"];
     // var candidates = ["Tymoshenko","Poroshenko"];
-    var candidates = ["Tymoshenko","Poroshenko","Zelensky"];
+    // var candidates = ["Tymoshenko","Poroshenko","Zelensky"];
 
+    var candidates_checked = ["Tymoshenko", "Poroshenko", "Zelensky"];
+    var candidates_unchecked = ["Grytsenko", "Boyko", "Lyashko"];
+
+    var candidates = candidates_checked.concat(candidates_unchecked);
 
     var display_names = {
         "Tymoshenko": "Тимошенко",
@@ -77,26 +81,21 @@
 
 
             lines_data.forEach(function(line, i) {
-                // if (i < 2) {
                 main_chart_vertical.addAreaLine({
                     data: line.values.map(d => ({date: d.date, v: d.median, v0: d.lower, v1: d.upper})),
                     "class": "candidate_" + i + " " + line.key,
-                    candidate: display_names[line.key]
+                    candidate: display_names[line.key],
+                    key: line.key,
+                    __checked__: candidates_checked.includes(line.key)
                 });
-                // } else {
-                main_chart_vertical.addLine({
-                    data: line.values.map(d => ({date: d.date, v: d.median, v0: d.lower, v1: d.upper})),
-                    "class": "candidate_" + i + " " + line.key,
-                    candidate: display_names[line.key]
-
-                });
-                // }
             });
 
             points_data.forEach(function(candidate_obj, i) {
                 main_chart_vertical.addPoints({
                     data: candidate_obj.values,
-                    "class": "candidate_" + i + " " + candidate_obj.key
+                    "class": "candidate_" + i + " " + candidate_obj.key,
+                    key: candidate_obj.key,
+                    __checked__: candidates_checked.includes(candidate_obj.key)
                 })
             });
 

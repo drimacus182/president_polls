@@ -98,7 +98,13 @@
       shape-rendering: geometricPrecision;
     }
 
+    .chart-pane .hidden {
+      display: none !important;
+    }
 
+    .moving-g .hidden {
+      display: none !important;
+    }
 
     line.year-line {stroke: black;}
     line.top-line {stroke: black; stroke-dasharray: 4 4}
@@ -124,10 +130,12 @@
 
     rect.distribution {
       fill-opacity: $area-opacity;
+      cursor: pointer;
     }
 
     text.candidate-name {
       font-size: 1em;
+      pointer-events: none;
     }
 
     .annotations-pane text {
