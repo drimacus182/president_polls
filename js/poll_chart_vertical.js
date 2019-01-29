@@ -201,8 +201,6 @@ function poll_chart_vertical() {
                 drawAreaLinesSvg(areaLineObj, area_g);
             });
 
-            console.log(pointss);
-
             pointss.forEach(function(pointsobj){
                 drawPoints(pointsobj);
             });
@@ -273,6 +271,20 @@ function poll_chart_vertical() {
             var annotations_pane = g
                 .append("g")
                 .attr("class", "annotations-pane");
+
+            d3.select(window).on("scroll", function(){
+                // var last_known_scroll_position = window.scrollY;
+                // console.log(window.scrollY)
+                var top = container.node().getBoundingClientRect().y;
+
+                console.log(top)
+
+                if (top > -margin.top + 100 + 15 || top < -height - margin.top + 100) return;
+                console.log("scroll")
+
+                moveTopLine([0, -top -100])
+
+            });
 
 
             function drawBackgroundForLabels() {
@@ -548,6 +560,8 @@ function poll_chart_vertical() {
                                     );
                                 })
                         }
+
+                        fix_overlaps(top_labels, 15);
                     });
 
                 // fix_overlaps_y(dist_rect, 11);
