@@ -34,7 +34,7 @@
 
     .axis--x {
       path.domain {
-        stroke: black;
+        stroke: #ccc;
         opacity: 1;
       }
 
@@ -128,19 +128,55 @@
       text-anchor: start;
     }
 
-    rect.distribution {
-      fill-opacity: $area-opacity;
-      cursor: pointer;
-    }
+    g.distribution {
+      rect.distribution {
+        fill-opacity: $area-opacity;
+        cursor: pointer;
+      }
 
-    text.candidate-name {
-      font-size: 1em;
-      pointer-events: none;
+      line.median-line {
+        stroke-width: 3px;
+        pointer-events: none;
+      }
+
+      text {
+        font-size: 1em;
+      }
+
+      text.candidate-name {
+        pointer-events: none;
+      }
+
+      text.bottom-percent {
+        text-anchor: end;
+      }
+
+      text.up-percent, text.median-percent {
+        text-anchor: start;
+      }
+
+      text.percent {
+        display: none;
+        pointer-events: none;
+      }
+
+      &:hover {
+        text.percent {
+          display: block;
+        }
+      }
     }
 
     .annotations-pane text {
       font-size: 13px;
 
+      &.percent-background {
+        //text-anchor: middle;
+        fill: none !important;
+        stroke-width: 0.5rem;
+        stroke-opacity: 1;
+        stroke-linejoin: round;
+      }
     }
 
   }

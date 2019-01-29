@@ -40,7 +40,7 @@ header {
       opacity: .1;
       stroke-width: 1; }
     .poll_chart svg .axis--x path.domain {
-      stroke: black;
+      stroke: #ccc;
       opacity: 1; }
     .poll_chart svg .axis--x line {
       display: none; }
@@ -101,14 +101,32 @@ header {
         stroke-linejoin: round; }
     .poll_chart svg text.moving-date {
       text-anchor: start; }
-    .poll_chart svg rect.distribution {
+    .poll_chart svg g.distribution rect.distribution {
       fill-opacity: 0.2;
       cursor: pointer; }
-    .poll_chart svg text.candidate-name {
-      font-size: 1em;
+    .poll_chart svg g.distribution line.median-line {
+      stroke-width: 3px;
       pointer-events: none; }
+    .poll_chart svg g.distribution text {
+      font-size: 1em; }
+    .poll_chart svg g.distribution text.candidate-name {
+      pointer-events: none; }
+    .poll_chart svg g.distribution text.bottom-percent {
+      text-anchor: end; }
+    .poll_chart svg g.distribution text.up-percent, .poll_chart svg g.distribution text.median-percent {
+      text-anchor: start; }
+    .poll_chart svg g.distribution text.percent {
+      display: none;
+      pointer-events: none; }
+    .poll_chart svg g.distribution:hover text.percent {
+      display: block; }
     .poll_chart svg .annotations-pane text {
       font-size: 13px; }
+      .poll_chart svg .annotations-pane text.percent-background {
+        fill: none !important;
+        stroke-width: 0.5rem;
+        stroke-opacity: 1;
+        stroke-linejoin: round; }
 
 .Tymoshenko.stroke-color {
   stroke: #e41a1c !important; }
@@ -166,15 +184,15 @@ header {
   fill: #ff7f00 !important; }
 
 .Lyashko.stroke-color {
-  stroke: #ffff33 !important; }
+  stroke: #ff02e7 !important; }
 .Lyashko.fill-color {
-  fill: #ffff33 !important; }
+  fill: #ff02e7 !important; }
 .Lyashko.stroke-pseudo-transparent-color {
-  stroke: #ffffd6 !important; }
+  stroke: #ffccfa !important; }
 .Lyashko .stroke-color {
-  stroke: #ffff33 !important; }
+  stroke: #ff02e7 !important; }
 .Lyashko .fill-color {
-  fill: #ffff33 !important; }
+  fill: #ff02e7 !important; }
 
 body {
   padding-top: 3em;

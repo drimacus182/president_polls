@@ -118,7 +118,8 @@ function poll_chart_vertical() {
                 .tickSizeOuter(2)
                 .tickSizeInner(-height)
                 .tickPadding(5)
-                .tickValues(x.domain())
+                .tickValues([3,6,9,12,15,18])
+                // .ticks(6)
                 .tickFormat(percentFormat);
 
             var yAxis_ticks = d3.axisLeft(y)
@@ -341,6 +342,17 @@ function poll_chart_vertical() {
                     .attr("dy", "2.5em")
                     .text(d => d.poll_house);
 
+                var percents_background = annotations_pane
+                    .selectAll("text.percent-background.enter")
+                    .data(popup_points)
+                    .enter()
+                    .append("text")
+                    .attr("class", d => "percent-background enter stroke-pseudo-transparent-color fill-color " + d.candidate)
+                    .attr("x", d => x(d.v))
+                    .attr("y", (d, i) => y(d.date) + 10 + i * 35 )
+                    .attr("dy", "1.5em")
+                    .text(d => percentFormat(d.v));
+
                 var percents = annotations_pane
                     .selectAll("text.percent.enter")
                     .data(popup_points)
@@ -351,6 +363,7 @@ function poll_chart_vertical() {
                     .attr("y", (d, i) => y(d.date) + 10 + i * 35 )
                     .attr("dy", "1.5em")
                     .text(d => percentFormat(d.v));
+
 
                 // fix_overlaps(poll_house_label, 2);
                 // dist_rect.each(function(d){d.__y__ = +d3.select(this).attr("y")});
@@ -459,12 +472,12 @@ function poll_chart_vertical() {
                 var dist_g = pane
                     .append("g")
                     .attr("class", "distributions_g")
-                    .attr("transform", "translate(0, " + (-40 - data.length * (rect_height + vertical_padding)) + ")")
+                    .attr("transform", "translate(0, " + (-35 - data.length * (rect_height + vertical_padding)) + ")")
                     .selectAll("g.distribution")
                     .data(data)
                     .enter()
                     .append("g")
-                    .attr("class", "distribution");
+                    .attr("class", d => "distribution " + d.key);
 
                 var dist_rect = dist_g
                     .sort((d1, d2) => x(d2.data.v) - x(d1.data.v))
@@ -545,7 +558,42 @@ function poll_chart_vertical() {
                     .attr("x", d => x(d.data.v0))
                     .attr("y", d => d.__y__)
                     .attr("dy", "0.9em")
-                    .text(d => (d.__checked__ ? "✓" : "")  + d.candidate)
+                    .text(d => (d.__checked__ ? "✓" : "")  + d.candidate);
+
+                dist_g
+                    .append("line")
+                    .attr("class", "median-line stroke-color")
+                    .attr("x1", d => x(d.data.v))
+                    .attr("x2", d => x(d.data.v))
+                    .attr("y1", d => d.__y__)
+                    .attr("y2", d => d.__y__ + rect_height)
+
+                dist_g
+                    .append("text")
+                    .attr("class", "percent bottom-percent fill-color")
+                    .attr("x", d => x(d.data.v0))
+                    .attr("y", d => d.__y__)
+                    .attr("dy", "1em")
+                    .attr("dx", "-0.3em")
+                    .text(d => percentFormat(d.data.v0));
+
+                dist_g
+                    .append("text")
+                    .attr("class", "percent up-percent fill-color")
+                    .attr("x", d => x(d.data.v1))
+                    .attr("y", d => d.__y__)
+                    .attr("dy", "1em")
+                    .text(d => percentFormat(d.data.v1));
+
+                dist_g
+                    .append("text")
+                    .attr("class", "percent median-percent fill-color")
+                    .attr("x", d => x(d.data.v))
+                    .attr("y", d => d.__y__)
+                    .attr("dy", "1em")
+                    .attr("dx", "0.3em")
+                    .text(d => percentFormat(d.data.v));
+
             }
 
 
