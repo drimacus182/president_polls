@@ -14,6 +14,10 @@ function poll_chart_vertical() {
         // })()
 
         , percentFormat = d3.format(".1f")
+        , percentWithPercentFormat = (function() {
+            var base = d3.format(".1%");
+            return function(val){ return base(val/100)};
+        })()
 
         , yTickValues
         , yTicks
@@ -120,7 +124,7 @@ function poll_chart_vertical() {
                 .tickPadding(5)
                 .tickValues([3,6,9,12,15,18])
                 // .ticks(6)
-                .tickFormat(percentFormat);
+                .tickFormat(percentWithPercentFormat);
 
             var yAxis_ticks = d3.axisLeft(y)
                 .tickSizeOuter(0)
