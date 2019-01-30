@@ -33,14 +33,14 @@ function poll_chart_vertical() {
             return (d3.timeYear(date) < date ? formatMonth : formatMonthYear)(date);
         }
 
-        , colors = [
-            "#e41a1c",
-            "#377eb8",
-            "#4daf4a",
-            "#984ea3",
-            "#ff7f00",
-            "#ffff33"
-        ]
+        // , colors = [
+        //     "#e41a1c",
+        //     "#377eb8",
+        //     "#4daf4a",
+        //     "#984ea3",
+        //     "#ff7f00",
+        //     "#ffff33"
+        // ]
 
 
 
@@ -72,7 +72,7 @@ function poll_chart_vertical() {
                 .append("svg")
                 .attr("class", "svg-pane");
 
-            var margin = {top: 200, right: 0, bottom: 15, left: 25}
+            var margin = {top: 200, right: 5, bottom: 15, left: 10}
                 , width = w - margin.left - margin.right
                 , height = h - margin.top - margin.bottom
                 , g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -122,7 +122,7 @@ function poll_chart_vertical() {
                 .tickSizeOuter(2)
                 .tickSizeInner(-height)
                 .tickPadding(5)
-                .tickValues([3,6,9,12,15,18])
+                .tickValues([0,3,6,9,12,15,18])
                 // .ticks(6)
                 .tickFormat(percentWithPercentFormat);
 

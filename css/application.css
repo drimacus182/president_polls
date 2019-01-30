@@ -206,6 +206,17 @@ header {
 .Lyashko .fill-color {
   fill: #ff02e7 !important; }
 
+.Sadovy.stroke-color {
+  stroke: #ffd900 !important; }
+.Sadovy.fill-color {
+  fill: #ffd900 !important; }
+.Sadovy.stroke-pseudo-transparent-color {
+  stroke: #fff7cc !important; }
+.Sadovy .stroke-color {
+  stroke: #ffd900 !important; }
+.Sadovy .fill-color {
+  fill: #ffd900 !important; }
+
 body {
   padding-top: 3em;
   color: #424242; }
@@ -251,9 +262,9 @@ a.dotted {
 
 .infobox {
   position: absolute;
-  top: 35px;
+  top: 25px;
   left: 0px;
-  max-width: 150px; }
+  max-width: 250px; }
 
 h3 {
   font-weight: 800;
