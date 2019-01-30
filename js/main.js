@@ -16,7 +16,8 @@
         "Grytsenko": "Гриценко",
         "Zelensky": "Зеленський",
         "Boyko": "Бойко",
-        "Lyashko": "Ляшко"
+        "Lyashko": "Ляшко",
+        "Sadovy": "Садовий"
     };
 
     d3.queue()
