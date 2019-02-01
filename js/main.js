@@ -6,7 +6,7 @@
     // var candidates = ["Tymoshenko","Poroshenko","Zelensky"];
 
     var candidates_checked = ["Tymoshenko", "Poroshenko", "Zelensky"];
-    var candidates_unchecked = ["Grytsenko", "Boyko", "Lyashko", "Sadovy"];
+    var candidates_unchecked = ["Grytsenko", "Boyko", "Lyashko"];
 
     var candidates = candidates_checked.concat(candidates_unchecked);
 
@@ -77,7 +77,7 @@
 
             var main_chart_vertical = poll_chart_vertical()
                 .y_domain(d3.extent(raw_data_lines, d => d.date))
-                .x_domain([0,18])
+                .x_domain([3,18])
                 .yTickValues(polls);
 
 

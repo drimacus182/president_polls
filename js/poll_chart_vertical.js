@@ -122,7 +122,7 @@ function poll_chart_vertical() {
                 .tickSizeOuter(2)
                 .tickSizeInner(-height)
                 .tickPadding(5)
-                .tickValues([0,3,6,9,12,15,18])
+                .tickValues([3,6,9,12,15,18])
                 // .ticks(6)
                 .tickFormat(percentWithPercentFormat);
 
