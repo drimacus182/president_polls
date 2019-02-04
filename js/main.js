@@ -103,7 +103,9 @@
             d3.select("#main_chart_vertical").call(main_chart_vertical);
 
 
-
+            d3.selectAll("svg .axis--y--labels .tick text").filter(function(){
+                return d3.select(this).text() == 'лютий';
+            }).attr("dy", "0.7em")
 
 
         });
