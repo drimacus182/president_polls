@@ -148,6 +148,14 @@
 
       text.candidate-name {
         pointer-events: none;
+
+        &.background {
+          fill: none !important;
+          stroke-opacity: 1 !important;
+          stroke-width: 0.2rem;
+          stroke-linejoin: round;
+          stroke: white;
+        }
       }
 
       text.bottom-percent {

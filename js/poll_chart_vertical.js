@@ -509,7 +509,7 @@ function poll_chart_vertical() {
                         d.__checked__ = !d.__checked__;
 
                         d3.select(this.parentNode)
-                            .select("text")
+                            .selectAll("text.candidate-name")
                             .text((d.__checked__ ? "✓" : "")  + d.candidate);
 
                         areaLines.filter(al => al.key === d.key)
@@ -568,8 +568,6 @@ function poll_chart_vertical() {
                         fix_overlaps(top_labels, 15);
                     });
 
-                // fix_overlaps_y(dist_rect, 11);
-
                 dist_rect.each(function(d){d.__y__ = +d3.select(this).attr("y")});
 
                 dist_g
@@ -578,15 +576,24 @@ function poll_chart_vertical() {
                     .attr("x1", d => x(d.data.v))
                     .attr("x2", d => x(d.data.v))
                     .attr("y1", d => d.__y__)
-                    .attr("y2", d => d.__y__ + rect_height)
+                    .attr("y2", d => d.__y__ + rect_height);
 
+                dist_g
+                    .append("text")
+                    .attr("class", "candidate-name background stroke-pseudo-transparent-color")
+                    .attr("x", d => x(d.data.v0))
+                    .attr("y", d => d.__y__)
+                    .attr("dy", "0.9em")
+                    .text(d => (d.__checked__ ? "✓" : "")  + d.candidate);
+                
                 dist_g
                     .append("text")
                     .attr("class", "candidate-name")
                     .attr("x", d => x(d.data.v0))
                     .attr("y", d => d.__y__)
                     .attr("dy", "0.9em")
-                    .text(d => (d.__checked__ ? "✓" : "")  + d.candidate);
+                    .text(d => (d.__checked__ ? "✓" : "")  + d.candidate)
+                    .each(function(d){ d.__label_length__ = this.getBBox().width });
 
                 dist_g
                     .append("text")
@@ -608,7 +615,7 @@ function poll_chart_vertical() {
                 dist_g
                     .append("text")
                     .attr("class", "percent median-percent fill-color")
-                    .attr("x", d => x(d.data.v))
+                    .attr("x", d => Math.max(x(d.data.v), x(d.data.v0) + d.__label_length__ + 2))
                     .attr("y", d => d.__y__)
                     .attr("dy", "1em")
                     .attr("dx", "0.3em")

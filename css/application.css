@@ -120,6 +120,12 @@ header {
       font-size: 1em; }
     .poll_chart svg g.distribution text.candidate-name {
       pointer-events: none; }
+      .poll_chart svg g.distribution text.candidate-name.background {
+        fill: none !important;
+        stroke-opacity: 1 !important;
+        stroke-width: 0.2rem;
+        stroke-linejoin: round;
+        stroke: white; }
     .poll_chart svg g.distribution text.bottom-percent {
       text-anchor: end; }
     .poll_chart svg g.distribution text.up-percent, .poll_chart svg g.distribution text.median-percent {
@@ -150,6 +156,8 @@ header {
   stroke: #e41a1c !important; }
 .Tymoshenko .fill-color {
   fill: #e41a1c !important; }
+.Tymoshenko .stroke-pseudo-transparent-color {
+  stroke: #fad1d2 !important; }
 
 .Poroshenko.stroke-color {
   stroke: #377eb8 !important; }
@@ -161,6 +169,8 @@ header {
   stroke: #377eb8 !important; }
 .Poroshenko .fill-color {
   fill: #377eb8 !important; }
+.Poroshenko .stroke-pseudo-transparent-color {
+  stroke: #d7e5f1 !important; }
 
 .Zelensky.stroke-color {
   stroke: #4daf4a !important; }
@@ -172,6 +182,8 @@ header {
   stroke: #4daf4a !important; }
 .Zelensky .fill-color {
   fill: #4daf4a !important; }
+.Zelensky .stroke-pseudo-transparent-color {
+  stroke: #dbefdb !important; }
 
 .Grytsenko.stroke-color {
   stroke: #984ea3 !important; }
@@ -183,6 +195,8 @@ header {
   stroke: #984ea3 !important; }
 .Grytsenko .fill-color {
   fill: #984ea3 !important; }
+.Grytsenko .stroke-pseudo-transparent-color {
+  stroke: #eadced !important; }
 
 .Boyko.stroke-color {
   stroke: #ff7f00 !important; }
@@ -194,6 +208,8 @@ header {
   stroke: #ff7f00 !important; }
 .Boyko .fill-color {
   fill: #ff7f00 !important; }
+.Boyko .stroke-pseudo-transparent-color {
+  stroke: #ffe5cc !important; }
 
 .Lyashko.stroke-color {
   stroke: #ff02e7 !important; }
@@ -205,6 +221,8 @@ header {
   stroke: #ff02e7 !important; }
 .Lyashko .fill-color {
   fill: #ff02e7 !important; }
+.Lyashko .stroke-pseudo-transparent-color {
+  stroke: #ffccfa !important; }
 
 .Sadovy.stroke-color {
   stroke: #ffd900 !important; }
@@ -216,6 +234,8 @@ header {
   stroke: #ffd900 !important; }
 .Sadovy .fill-color {
   fill: #ffd900 !important; }
+.Sadovy .stroke-pseudo-transparent-color {
+  stroke: #fff7cc !important; }
 
 body {
   padding-top: 3em;
