@@ -104,7 +104,7 @@
 
 
             d3.selectAll("svg .axis--y--labels .tick text").filter(function(){
-                return d3.select(this).text() == 'лютий';
+                return d3.select(this).text() == 'березень';
             }).attr("dy", "0.7em")
 
 
