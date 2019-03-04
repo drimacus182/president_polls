@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+    <title>Presidential Elections-2019 in Ukraine. Aggregated ratings of candidates</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/application.css" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,italic&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:site_name" content="TEXTY.ORG.UA"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Presidential Elections-2019 in Ukraine. Poll of polls."/>
+    <meta property="og:image" content="http://texty.org.ua/d/2019/president_polls/image/og.jpg"/>
+    <meta property="og:description" content="Aggregated ratings for candidates of Ukrainian presidential elections-2019"/>
+    <meta property="og:url" content="http://texty.org.ua/d/2019/president_polls/index_eng.html">
+
+    <meta name="twitter:site" content="@textyorgua"/>
+    <meta property="twitter:account_id" content="49572937"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:url" content="http://texty.org.ua/d/2019/president_polls/index_eng.html"/>
+    <meta name="twitter:title" content="Presidential Elections-2019 in Ukraine. Poll of polls."/>
+    <meta name="twitter:description" content="Aggregated ratings for candidates of Ukrainian presidential elections-2019"/>
+    <meta name="twitter:image:src" content="http://texty.org.ua/d/2019/president_polls/image/og.jpg"/>
+    <meta name="twitter:image:width" content="1200"/>
+    <meta name="twitter:image:height" content="630"/>
+    <!-- Other Meta Tags -->
+    <meta name="title" content="Presidential Elections-2019 in Ukraine. Poll of polls.">
+    <meta name="description" content="Aggregated ratings for candidates of Ukrainian presidential elections-2019">
+
+</head>
+
+<body>
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+                    <a href="http://texty.org.ua/" target="_blank"><img src="image/logo.png" alt="texty.org.ua" class="main-logo"></a>
+                    
+                    <a id="support-header" class="button" target="_blank" href="https://www.liqpay.ua/api/3/checkout?data=eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXlkb25hdGUiLCJwdWJsaWNfa2V5IjoiaTc2NjUwNTYyODI3IiwiYW1vdW50IjoiNTAiLCJjdXJyZW5jeSI6IlVBSCIsImRlc2NyaXB0aW9uIjoi0J%2FQvtC20LXRgNGC0LLQsCIsInR5cGUiOiJkb25hdGUiLCJsYW5ndWFnZSI6InVrIn0%3D&amp;signature=YFkd4Z74QCJXRxMTPoWm0JVlkX4%3D">Donate</a>
+
+                <div class="social-icons d-flex justify-content-between align">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=http://texty.org.ua/d/2019/president_polls/" class="share-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/intent/tweet?text=http://texty.org.ua/d/2019/president_polls/" class="share-btn"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="container-fluid main-title">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <h3>Presidential Elections-2019 in Ukraine</h3>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <h4>(«Poll of polls»)</h4>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <p>We took all reliable polls and plotted aggregated ratings of candidates on interactive chart. The values are percentage of voters who are going to vote. &nbsp; Updated: March 4, 2019</p>
+
+            <p class="mobile">
+                Click on bars with name of candidates to add or remove corresponding charts.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 justify-content-center" style="display: flex">
+            <div id="main_chart_vertical" class="poll_chart" data-aspect-ratio="0.2" style="width: 800px; height: 1200px">
+
+            <p class="infobox desktop">
+                Click on bars with name of candidates to add or remove corresponding charts.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center" style="margin-top: 5em;">
+        <div class="col-12 col-md-8 col-lg-6">
+            <p>Each line on chart is an evolution of median for support rate for some candidate. We calculated it with a help of probabilistic model*.</p>
+            <p>Please, take into account that support level for some candidate in form of single number is oversimplification. We've got a whole distribution for level of support, so besides median you should look to entire range of values for specific level.</p>
+            <p> So please, pay an attention to the band of color around each line ― this is the range of values for level of support for specific candidate. So, with a big probability (0.95) the level of support is within such range.</p>
+            <p> Please, remember: this is NOT an election forecast! This is just aggregated levels of support for candidates due to number of different polls.</p>
+
+            <p id="socio-note">* The polls used in our model  <a href="https://docs.google.com/spreadsheets/d/17TkyxT0pyNM4Om4agkL-wWDjhyv0bOu7bkNCYzhIeQo/edit?usp=sharing" target="_blank">are here.</a> The data is in percentages of voters who are going to vote. </p>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-8">
+            <div id="button">
+                <h3>TEXTY.ORG.UA — independent media without annoying advertisements and paid articles. We need your support!</h3>
+
+                <div id="button-container">
+                    <a id="support-us" class="button" target="_blank" href="https://www.liqpay.ua/api/3/checkout?data=eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXlkb25hdGUiLCJwdWJsaWNfa2V5IjoiaTc2NjUwNTYyODI3IiwiYW1vdW50IjoiNTAiLCJjdXJyZW5jeSI6IlVBSCIsImRlc2NyaXB0aW9uIjoi0J%2FQvtC20LXRgNGC0LLQsCIsInR5cGUiOiJkb25hdGUiLCJsYW5ndWFnZSI6InVrIn0%3D&amp;signature=YFkd4Z74QCJXRxMTPoWm0JVlkX4%3D">DONATE!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #button {
+        width: 100%; /* 100% of parent container*/
+        margin:auto;
+        line-height: 1.6;
+        margin-top: 5em;
+        margin-bottom: 5em;
+    }
+
+    #button > h3 {
+        font-weight:800;
+        text-align: center;
+        font-size:18px;
+        margin-bottom: 1em;
+        line-height: 1.6;
+    }
+
+    #button > #button-container {
+        width:100%;
+        display:flex;
+        font-family: Verdana, Arial, sans-serif;
+        font-style: normal;
+    }
+
+    #button > #button-container > #support-us {
+        display: block;
+        color: #383e47;
+        text-decoration: none;
+        font-weight:700;
+
+        width:auto;
+        width:max-content;
+        background-color: #ffc423;
+        padding: 10px;
+        outline: none;
+        border:none;
+        font-size:18px;
+        margin:auto;
+        cursor:pointer;
+    }
+</style>
+
+
+<div class="container footer">
+    <div class="credits">
+        <div class="row justify-content-center">
+            <div>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://texty.org.ua/d/2019/president_polls/" class="share-btn"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/intent/tweet?text=http://texty.org.ua/d/2019/president_polls/" class="share-btn"><i class="fab fa-twitter"></i></a>
+                <h3>Created by Texty</h3>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="logo">
+                <a href="http://texty.org.ua/" target="_blank"><img src="image/logo.png" alt="texty.org.ua" style="max-width: 100%;"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="lib/d3.v4.min.js"></script>
+<script src="js/d3-ukrainian.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script src="lib/share-behavior.js"></script>
+<script src="lib/rbush.min.js"></script>
+
+<script src="js/canvas_grad_line.js"></script>
+<!--<script src="js/canvas_grad_line_2.js"></script>-->
+<script src="js/poll_chart.js"></script>
+<script src="js/poll_chart_vertical.js"></script>
+<script src="js/main.js"></script>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-18136548-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>
