@@ -281,11 +281,7 @@ function poll_chart_vertical() {
                 // console.log(window.scrollY)
                 var top = container.node().getBoundingClientRect().y;
 
-                console.log(top)
-
                 if (top > -margin.top + 100 + 15 || top < -height - margin.top + 100) return;
-                console.log("scroll")
-
                 moveTopLine([0, -top -100])
 
             });
