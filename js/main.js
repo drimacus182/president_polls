@@ -1,30 +1,19 @@
 (function() {
-    // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko","Lyashko"];
-    // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky","Boyko"];
-    // var candidates = ["Tymoshenko","Poroshenko","Grytsenko","Zelensky"];
-    // var candidates = ["Tymoshenko","Poroshenko"];
-    // var candidates = ["Tymoshenko","Poroshenko","Zelensky"];
-
     var candidates_checked = ["Tymoshenko", "Poroshenko", "Zelensky"];
     var candidates_unchecked = ["Grytsenko", "Boyko", "Lyashko"];
 
     var candidates = candidates_checked.concat(candidates_unchecked);
 
-    var display_names = {
-        "Tymoshenko": "Тимошенко",
-        "Poroshenko": "Порошенко",
-        "Grytsenko": "Гриценко",
-        "Zelensky": "Зеленський",
-        "Boyko": "Бойко",
-        "Lyashko": "Ляшко",
-        "Sadovy": "Садовий"
-    };
+    var display_names = __page_locale__.display_names;
+    var data_root = __page_locale__.data_root;
 
     d3.queue()
-        .defer(d3.csv, "data/chart_data_lines.csv")
-        .defer(d3.csv, "data/chart_data_points.csv")
+        .defer(d3.csv, data_root + "chart_data_lines.csv")
+        .defer(d3.csv, data_root + "chart_data_points.csv")
         .await(function(err, raw_data_lines, raw_data_points) {
 
+            if (err) throw err;
+            
             raw_data_lines.forEach(function(d) {
                 d.median = + d.median;
                 d.lower = + d.lower;
@@ -104,7 +93,7 @@
 
 
             d3.selectAll("svg .axis--y--labels .tick text").filter(function(){
-                return d3.select(this).text() == 'березень';
+                return ['березень', 'March'].indexOf(d3.select(this).text()) >= 0;
             }).attr("dy", "0.7em")
 
 
