@@ -92,11 +92,11 @@ function poll_chart_vertical() {
                 .y(d => y(d.date))
                 .curve(d3.curveLinear);
 
-            var area_gen_gradient_canvas = canvas_grad_line()
-                .x(d => x((d.v0 + d.v1) / 2))
-                .y(d => y(d.date))
-                .width(d => Math.abs(x(d.v0) - x(d.v1)))
-                .context(context);
+            // var area_gen_gradient_canvas = canvas_grad_line()
+            //     .x(d => x((d.v0 + d.v1) / 2))
+            //     .y(d => y(d.date))
+            //     .width(d => Math.abs(x(d.v0) - x(d.v1)))
+            //     .context(context);
 
 
             if (x_domain) x.domain(x_domain)
@@ -420,12 +420,12 @@ function poll_chart_vertical() {
                     .attr("d", d => area_gen(d.data));
             }
 
-            function drawAreaCanvas(areaobj, color) {
-                context.beginPath();
-                context.fillStyle = color;
-                area_gen_gradient_canvas.color(color)(areaobj.data);
-                context.fill();
-            }
+            // function drawAreaCanvas(areaobj, color) {
+            //     context.beginPath();
+            //     context.fillStyle = color;
+            //     area_gen_gradient_canvas.color(color)(areaobj.data);
+            //     context.fill();
+            // }
 
 
             function drawAreaLinesSvg(areaLine) {
