@@ -33,18 +33,6 @@ function poll_chart_vertical() {
             return (d3.timeYear(date) < date ? formatMonth : formatMonthYear)(date);
         }
 
-        // , colors = [
-        //     "#e41a1c",
-        //     "#377eb8",
-        //     "#4daf4a",
-        //     "#984ea3",
-        //     "#ff7f00",
-        //     "#ffff33"
-        // ]
-
-
-
-
         , points_tree = rbush()
         ;
 
