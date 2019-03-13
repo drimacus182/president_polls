@@ -241,7 +241,7 @@ function poll_chart_vertical() {
                 .append("line")
                 .attr("class", "top-line")
                 .attr("x1", -50)
-                .attr("x2", width + 50)
+                .attr("x2", width + 150)
                 .attr("y1", 0)
                 .attr("y2", 0);
 
@@ -249,7 +249,7 @@ function poll_chart_vertical() {
                 .append("text")
                 .attr("class", "moving-date")
                 .attr("x", width)
-                .attr("dx", "1em")
+                .attr("dx", "5em")
                 .attr("y", 0)
                 .attr("dy", "-0.5em")
                 .text(day_format(y.invert(0)));
