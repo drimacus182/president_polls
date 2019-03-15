@@ -227,18 +227,18 @@ header {
 .Lyashko .stroke-pseudo-transparent-color {
   stroke: #ffccfa !important; }
 
-.Sadovy.stroke-color {
-  stroke: #ffd900 !important; }
-.Sadovy.fill-color {
-  fill: #ffd900 !important; }
-.Sadovy.stroke-pseudo-transparent-color {
-  stroke: #fff7cc !important; }
-.Sadovy .stroke-color {
-  stroke: #ffd900 !important; }
-.Sadovy .fill-color {
-  fill: #ffd900 !important; }
-.Sadovy .stroke-pseudo-transparent-color {
-  stroke: #fff7cc !important; }
+.Undecided.stroke-color {
+  stroke: #c1c1c1 !important; }
+.Undecided.fill-color {
+  fill: #c1c1c1 !important; }
+.Undecided.stroke-pseudo-transparent-color {
+  stroke: #f3f3f3 !important; }
+.Undecided .stroke-color {
+  stroke: #c1c1c1 !important; }
+.Undecided .fill-color {
+  fill: #c1c1c1 !important; }
+.Undecided .stroke-pseudo-transparent-color {
+  stroke: #f3f3f3 !important; }
 
 body {
   padding-top: 3em;

@@ -74,7 +74,7 @@
     <div class="row d-flex justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
             <p>Ми взяли всі соціологічні опитування, яким можна довіряти, і показали на графіку агреговаі рейтинги (потенційних) кандидатів у президенти України на виборах 2019 року, у відсотках від
-            <select style="border: 1px solid black; background-color: white; cursor: help;" title="Клікайте щоб змінити тип графіку">
+            <select id="chart-select" style="border: 1px solid black; background-color: white; cursor: help;" title="Клікайте щоб змінити тип графіку" autocomplete="off">
                 <option value="who-vote">виборців, що збираються голосувати</option>
                 <option value="all">усіх виборців</option>
             </select>.
@@ -220,7 +220,8 @@
             "Zelensky": "Зеленський",
             "Boyko": "Бойко",
             "Lyashko": "Ляшко",
-            "Sadovy": "Садовий"
+            "Sadovy": "Садовий",
+            "Undecided": "Не визначились"
         },
         data_root : "./data/"
     }
