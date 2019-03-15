@@ -7,6 +7,7 @@ function poll_chart_vertical() {
 
         , x_domain
         , y_domain
+        , x_tick_values
 
         // , percentFormat = (function() {
         //     var base = d3.format(".1%");
@@ -110,7 +111,7 @@ function poll_chart_vertical() {
                 .tickSizeOuter(2)
                 .tickSizeInner(-height)
                 .tickPadding(5)
-                .tickValues([3,6,9,12,15,18])
+                .tickValues(x_tick_values)
                 // .ticks(6)
                 .tickFormat(percentWithPercentFormat);
 
@@ -249,7 +250,7 @@ function poll_chart_vertical() {
                 .append("text")
                 .attr("class", "moving-date")
                 .attr("x", width)
-                .attr("dx", "5em")
+                .attr("dx", "1em")
                 .attr("y", 0)
                 .attr("dy", "-0.5em")
                 .text(day_format(y.invert(0)));
@@ -745,6 +746,12 @@ function poll_chart_vertical() {
     my.yTickValues = function(value) {
         if (!arguments.length) return yTickValues;
         yTickValues = value;
+        return my;
+    };
+
+    my.x_tick_values = function(value) {
+        if (!arguments.length) return x_tick_values;
+        x_tick_values = value;
         return my;
     };
 
