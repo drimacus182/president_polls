@@ -19,12 +19,15 @@ header {
   header .main-logo {
     height: 2.5em; }
   header .social-icons {
-    width: 3em; }
+    width: 3em;
+    margin-left: 2em; }
     header .social-icons a {
       font-size: 1.3em;
       color: #aaa; }
       header .social-icons a:hover {
         color: orange; }
+  header .lang-link {
+    color: #424242; }
 
 .poll_chart {
   position: relative; }

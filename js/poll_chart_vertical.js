@@ -33,18 +33,6 @@ function poll_chart_vertical() {
             return (d3.timeYear(date) < date ? formatMonth : formatMonthYear)(date);
         }
 
-        // , colors = [
-        //     "#e41a1c",
-        //     "#377eb8",
-        //     "#4daf4a",
-        //     "#984ea3",
-        //     "#ff7f00",
-        //     "#ffff33"
-        // ]
-
-
-
-
         , points_tree = rbush()
         ;
 
@@ -104,11 +92,11 @@ function poll_chart_vertical() {
                 .y(d => y(d.date))
                 .curve(d3.curveLinear);
 
-            var area_gen_gradient_canvas = canvas_grad_line()
-                .x(d => x((d.v0 + d.v1) / 2))
-                .y(d => y(d.date))
-                .width(d => Math.abs(x(d.v0) - x(d.v1)))
-                .context(context);
+            // var area_gen_gradient_canvas = canvas_grad_line()
+            //     .x(d => x((d.v0 + d.v1) / 2))
+            //     .y(d => y(d.date))
+            //     .width(d => Math.abs(x(d.v0) - x(d.v1)))
+            //     .context(context);
 
 
             if (x_domain) x.domain(x_domain)
@@ -253,7 +241,7 @@ function poll_chart_vertical() {
                 .append("line")
                 .attr("class", "top-line")
                 .attr("x1", -50)
-                .attr("x2", width + 50)
+                .attr("x2", width + 150)
                 .attr("y1", 0)
                 .attr("y2", 0);
 
@@ -261,7 +249,7 @@ function poll_chart_vertical() {
                 .append("text")
                 .attr("class", "moving-date")
                 .attr("x", width)
-                .attr("dx", "1em")
+                .attr("dx", "5em")
                 .attr("y", 0)
                 .attr("dy", "-0.5em")
                 .text(day_format(y.invert(0)));
@@ -281,11 +269,7 @@ function poll_chart_vertical() {
                 // console.log(window.scrollY)
                 var top = container.node().getBoundingClientRect().y;
 
-                console.log(top)
-
                 if (top > -margin.top + 100 + 15 || top < -height - margin.top + 100) return;
-                console.log("scroll")
-
                 moveTopLine([0, -top -100])
 
             });
@@ -436,12 +420,12 @@ function poll_chart_vertical() {
                     .attr("d", d => area_gen(d.data));
             }
 
-            function drawAreaCanvas(areaobj, color) {
-                context.beginPath();
-                context.fillStyle = color;
-                area_gen_gradient_canvas.color(color)(areaobj.data);
-                context.fill();
-            }
+            // function drawAreaCanvas(areaobj, color) {
+            //     context.beginPath();
+            //     context.fillStyle = color;
+            //     area_gen_gradient_canvas.color(color)(areaobj.data);
+            //     context.fill();
+            // }
 
 
             function drawAreaLinesSvg(areaLine) {
