@@ -34,11 +34,13 @@ function poll_chart_vertical() {
             return (d3.timeYear(date) < date ? formatMonth : formatMonthYear)(date);
         }
 
-        , points_tree = rbush()
+        , points_tree
         ;
 
     function my(selection) {
         selection.each(function(d) {
+
+        	points_tree = rbush();
 
             var container = d3.select(this);
             var w = container.node().getBoundingClientRect().width;
