@@ -1,9 +1,14 @@
 (function() {
+
+
+
     var candidates_checked = ["Tymoshenko", "Poroshenko", "Zelensky"];
     var candidates_unchecked = ["Grytsenko", "Boyko", "Lyashko"];
 
     var candidates_w_u_checked = ["Tymoshenko", "Poroshenko", "Zelensky", "Undecided"];
     var candidates_w_u_unchecked = ["Grytsenko", "Boyko", "Lyashko"];
+
+    var all_candidates =  candidates_w_u_checked.concat(candidates_w_u_unchecked);
 
     var display_names = __page_locale__.display_names;
     var data_root = __page_locale__.data_root;
@@ -14,6 +19,20 @@
         .await(function(err, raw_data_lines, raw_data_points) {
 
             if (err) throw err;
+
+            raw_data_lines.forEach(function(d) {
+                d.median = + d.median;
+                d.lower = + d.lower;
+                d.upper = + d.upper;
+                d.date = new Date(d.date);
+                delete d[""];
+            });
+
+            raw_data_points.forEach(function(d) {
+                d.date = new Date(d.end_date);
+                all_candidates.forEach(function(candidate) {d[candidate] = toNumber(d[candidate])});
+                delete d[""];
+            });
 
             var chart1 = makeChart(raw_data_lines, raw_data_points, candidates_checked,
                 candidates_unchecked, [3,21], [3,6,9,12,15,18,21]);
@@ -42,20 +61,6 @@
                                candidates_unchecked, x_domain, x_tick_values) {
 
                 var candidates = candidates_checked.concat(candidates_unchecked);
-
-                raw_data_lines.forEach(function(d) {
-                    d.median = + d.median;
-                    d.lower = + d.lower;
-                    d.upper = + d.upper;
-                    d.date = new Date(d.date);
-                    delete d[""];
-                });
-
-                raw_data_points.forEach(function(d) {
-                    d.date = new Date(d.end_date);
-                    candidates.forEach(function(candidate) {d[candidate] = toNumber(d[candidate])});
-                    delete d[""];
-                });
 
                 var points_data_long = [];
 
