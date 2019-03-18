@@ -240,6 +240,19 @@ header {
 .Undecided .stroke-pseudo-transparent-color {
   stroke: #f3f3f3 !important; }
 
+.Will_not_vote.stroke-color {
+  stroke: #c1c1c1 !important; }
+.Will_not_vote.fill-color {
+  fill: #c1c1c1 !important; }
+.Will_not_vote.stroke-pseudo-transparent-color {
+  stroke: #f3f3f3 !important; }
+.Will_not_vote .stroke-color {
+  stroke: #c1c1c1 !important; }
+.Will_not_vote .fill-color {
+  fill: #c1c1c1 !important; }
+.Will_not_vote .stroke-pseudo-transparent-color {
+  stroke: #f3f3f3 !important; }
+
 body {
   padding-top: 3em;
   color: #424242; }
@@ -319,5 +332,10 @@ p {
   @media (max-width: 700px) {
     .desktop {
       display: none; } }
+
+select#chart-select {
+  border: 1px solid #777;
+  background-color: rgba(255, 73, 255, 0.3);
+  cursor: help; }
 
 /*# sourceMappingURL=application.css.map */
