@@ -1,7 +1,7 @@
 (function() {
 
     var candidates_1_checked = ["Tymoshenko", "Poroshenko", "Zelensky", "Undecided"];
-    var candidates_1_unchecked = ["Grytsenko", "Boyko", "Lyashko", "Will_not_vote"];
+    var candidates_1_unchecked = ["Will_not_vote", "Grytsenko", "Boyko", "Lyashko"];
 
     var candidates_2_checked = ["Tymoshenko", "Poroshenko", "Zelensky", "Undecided"];
     var candidates_2_unchecked = ["Grytsenko", "Boyko", "Lyashko"];
@@ -9,16 +9,13 @@
     var candidates_3_checked = ["Tymoshenko", "Poroshenko", "Zelensky"];
     var candidates_3_unchecked = ["Grytsenko", "Boyko", "Lyashko"];
 
-    var all_candidates = ["Tymoshenko", "Poroshenko", "Zelensky", "Undecided",
-        "Grytsenko", "Boyko", "Lyashko", "Will_not_vote"];
+    var all_candidates = [ "Will_not_vote", "Tymoshenko", "Poroshenko", "Zelensky", "Undecided",
+        "Grytsenko", "Boyko", "Lyashko"];
 
     var display_names = __page_locale__.display_names;
     var data_root = __page_locale__.data_root;
 
     var charts = {};
-
-    // Щоб не голосувальники були знизу
-    var order_bias = {"Will_not_vote": -100};
     
     fetchData("2", function(err, raw_data_lines, raw_data_points){
         charts["2"] = makeChart(raw_data_lines, raw_data_points, candidates_2_checked,
@@ -53,7 +50,7 @@
     function makeChart(raw_data_lines, raw_data_points, candidates_checked,
                        candidates_unchecked, x_domain, x_tick_values) {
 
-        var candidates = candidates_checked.concat(candidates_unchecked);
+        var candidates = candidates_unchecked.concat(candidates_checked);
 
         var points_data_long = [];
 
@@ -92,8 +89,7 @@
             .y_domain(d3.extent(raw_data_lines, d => d.date))
             .x_domain(x_domain)
             .x_tick_values(x_tick_values)
-            .yTickValues(polls)
-            .orderBias(order_bias);
+            .yTickValues(polls);
 
 
         lines_data.forEach(function(line, i) {

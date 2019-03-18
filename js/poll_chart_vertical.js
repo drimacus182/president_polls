@@ -8,7 +8,6 @@ function poll_chart_vertical() {
         , x_domain
         , y_domain
         , x_tick_values
-        , orderBias
 
         // , percentFormat = (function() {
         //     var base = d3.format(".1%");
@@ -486,8 +485,7 @@ function poll_chart_vertical() {
                     .attr("class", d => "distribution " + d.key);
 
                 var dist_rect = dist_g
-                    .each(d => d.order = x(d.data.v + (orderBias[d.key] ? orderBias[d.key] : 0)))
-                    .sort((d1, d2) => d2.order - d1.order)
+                    .sort((d1, d2) => x(d2.data.v) - x(d1.data.v))
                     .append("rect").attr("class", d => "distribution fill-color " + d.class)
                     .attr("x", d => x(d.data.v0))
                     .attr("width", d => x(d.data.v1) - x(d.data.v0))
@@ -756,12 +754,6 @@ function poll_chart_vertical() {
     my.x_tick_values = function(value) {
         if (!arguments.length) return x_tick_values;
         x_tick_values = value;
-        return my;
-    };
-
-    my.orderBias = function(value) {
-        if (!arguments.length) return orderBias;
-        orderBias = value;
         return my;
     };
 
