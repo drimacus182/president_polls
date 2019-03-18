@@ -594,7 +594,7 @@ function poll_chart_vertical() {
                 dist_g
                     .append("text")
                     .attr("class", "percent up-percent fill-color")
-                    .attr("x", d => x(d.data.v1))
+                    .attr("x", d => Math.max(x(d.data.v1), x(d.data.v0) + d.__label_length__ + 42) )
                     .attr("y", d => d.__y__)
                     .attr("dy", "1em")
                     .text(d => percentFormat(d.data.v1));
