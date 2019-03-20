@@ -300,7 +300,8 @@ a.dotted {
   position: absolute;
   top: 25px;
   left: 0px;
-  max-width: 250px; }
+  max-width: 250px;
+  font-size: 1.1em; }
 
 h3 {
   font-weight: 800;
